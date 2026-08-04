@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML5 Elements Demo - Web Tech Lab</title>
+
+<!-- Web Technology Lab - Experiment 1
+     just going through the basic HTML5 tags, forms and multimedia stuff
+     nothing fancy, keeping styles simple -->
+
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 20px;
+    background: #f4f6f8;
+    color: #333;
+    line-height: 1.4;
+  }
+
+  header {
+    background: #34495e;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+  header p {
+    margin-top: 8px;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+
+  nav {
+    background: #2c3e50;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  section {
+    background: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+
+  article {
+    padding: 15px;
+    background: #ecf0f1;
+    border-radius: 6px;
+  }
+
+  footer {
+    background: #34495e;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 10px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+
+  th, td {
+    border: 1px solid #999;
+    padding: 10px;
+    text-align: center;
+  }
+
+  th {
+    background: #dfe6e9;
+  }
+
+  form input, form textarea, form select {
+    display: block;
+    margin: 10px 0;
+    padding: 8px;
+    width: 80%;
+    max-width: 400px;
+    font-family: inherit;
+  }
+
+  button, input[type="submit"] {
+    padding: 10px 20px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  input[type="submit"]:hover {
+    background: #2980b9;
+  }
+
+  aside {
+    background: #fffbe6;
+    border-left: 4px solid #f1c40f;
+    padding: 12px 16px;
+    margin-top: 20px;
+    border-radius: 6px;
+  }
+
+  canvas {
+    display: block;
+    margin-top: 10px;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- header -->
+<header>
+  <h1>HTML5 Elements Demonstration</h1>
+  <p>A quick page covering the main HTML5 tags and features - made for the lab file.</p>
+</header>
+
+<!-- nav bar -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#form">Form</a>
+  <a href="#media">Media</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main>
+
+  <section id="about">
+    <h2>About HTML5</h2>
+    <article>
+      <p>
+        HTML5 is basically the newer version of HTML that most sites use now.
+        It added a bunch of semantic tags, native audio/video support, and
+        better form controls compared to older HTML.
+      </p>
+
+      <h3>Some Semantic Elements</h3>
+      <ul>
+        <li>header</li>
+        <li>nav</li>
+        <li>section</li>
+        <li>article</li>
+        <li>aside</li>
+        <li>footer</li>
+      </ul>
+    </article>
+  </section>
+
+  <section>
+    <h2>Image / Figure</h2>
+    <figure>
+      <img src="https://via.placeholder.com/300" alt="sample placeholder image">
+      <figcaption>Fig 1. Example image using the &lt;figure&gt; tag</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Student Info Table</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Course</th>
+        <th>Year</th>
+      </tr>
+      <tr>
+        <td>Kanishka</td>
+        <td>B.Tech CSE</td>
+        <td>3rd Year</td>
+      </tr>
+      <tr>
+        <td>Rahul</td>
+        <td>B.Tech IT</td>
+        <td>2nd Year</td>
+      </tr>
+    </table>
+  </section>
+
+  <section id="form">
+    <h2>Form Elements</h2>
+    <form>
+      <label>Name:</label>
+      <input type="text" placeholder="Enter your name">
+
+      <label>Email:</label>
+      <input type="email" placeholder="Enter email">
+
+      <label>Password:</label>
+      <input type="password" placeholder="Password">
+
+      <label>Date of Birth:</label>
+      <input type="date">
+
+      <label>Phone Number:</label>
+      <input type="tel">
+
+      <label>Search:</label>
+      <input type="search">
+
+      <label>Gender:</label>
+      <input type="radio" name="gender" id="male"> <label for="male" style="display:inline; width:auto;">Male</label>
+      <input type="radio" name="gender" id="female"> <label for="female" style="display:inline; width:auto;">Female</label>
+
+      <br><br>
+
+      <label>Skills:</label>
+      <input type="checkbox" id="html"> <label for="html" style="display:inline; width:auto;">HTML</label>
+      <input type="checkbox" id="css"> <label for="css" style="display:inline; width:auto;">CSS</label>
+      <input type="checkbox" id="js"> <label for="js" style="display:inline; width:auto;">JavaScript</label>
+
+      <br><br>
+
+      <label>Course:</label>
+      <select>
+        <option>Computer Science</option>
+        <option>Information Technology</option>
+        <option>Electronics</option>
+      </select>
+
+      <textarea rows="5" placeholder="Write your message here"></textarea>
+
+      <input type="submit" value="Submit">
+    </form>
+  </section>
+
+  <section id="media">
+    <h2>Multimedia</h2>
+
+    <h3>Audio</h3>
+    <audio controls>
+      <source src="audio.mp3" type="audio/mp3">
+      Your browser doesn't support the audio tag.
+    </audio>
+
+    <h3>Video</h3>
+    <video width="400" controls>
+      <source src="video.mp4" type="video/mp4">
+      Your browser doesn't support the video tag.
+    </video>
+  </section>
+
+  <section>
+    <h2>Progress / Meter / Details</h2>
+
+    <h3>Progress Bar</h3>
+    <progress value="70" max="100"></progress> 70%
+
+    <h3>Meter</h3>
+    <meter value="0.8">80%</meter> 80%
+
+    <h3>Details &amp; Summary</h3>
+    <details>
+      <summary>Click here to see more</summary>
+      <p>HTML5 improved page structure a lot and made multimedia way easier to add without plugins like Flash.</p>
+    </details>
+  </section>
+
+  <section>
+    <h2>Canvas</h2>
+    <canvas id="myCanvas" width="300" height="150" style="border:1px solid #333;"></canvas>
+    <script>
+      // drawing some text on canvas, nothing complicated
+      const canvas = document.getElementById("myCanvas");
+      const ctx = canvas.getContext("2d");
+      ctx.font = "20px Arial";
+      ctx.fillStyle = "#2c3e50";
+      ctx.fillText("HTML5 Canvas", 50, 80);
+    </script>
+  </section>
+
+  <aside>
+    <h3>Note</h3>
+    <p>HTML5 basically makes sites more interactive, accessible and SEO-friendly compared to the old HTML4 days.</p>
+  </aside>
+
+</main>
+
+<footer id="contact">
+  <p>Made for Web Technology Lab - Experiment 1</p>
+  <p>&copy; 2026 HTML5 Demonstration Page</p>
+   <p> kanishkabhatt6@gmail.com</p>
+</footer>
+
+</body>
+</html>

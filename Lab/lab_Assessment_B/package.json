@@ -1,0 +1,32 @@
+{
+  "name": "lab-assessment-b",
+  "version": "1.0.0",
+  "description": "Eisenhower Todo application using Node.js, Express, EJS and MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "ejs",
+    "mongodb",
+    "todo",
+    "eisenhower-matrix"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.22.3",
+    "express-session": "^1.19.0",
+    "mongodb": "^6.12.0",
+    "mongoose": "^9.10.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "author": "",
+  "type": "commonjs"
+}

@@ -1,0 +1,193 @@
+<%
+    let dueStatus = "";
+
+    if (task.dueDate) {
+
+        const today = new Date();
+
+        today.setHours(0, 0, 0, 0);
+
+        const due = new Date(task.dueDate);
+
+        due.setHours(0, 0, 0, 0);
+
+
+        if (
+            due < today &&
+            !task.completed
+        ) {
+
+            dueStatus = "overdue";
+
+        }
+
+        else if (
+            due.getTime() ===
+            today.getTime()
+        ) {
+
+            dueStatus = "today";
+
+        }
+
+        else {
+
+            dueStatus = "upcoming";
+
+        }
+
+    }
+%>
+
+
+<article
+    class="task-card
+    <%= task.completed ? 'completed' : '' %>"
+    data-title="<%= task.title.toLowerCase() %>"
+    data-description="<%= task.description.toLowerCase() %>"
+    data-priority="<%= task.priority || 'Medium' %>"
+    data-completed="<%= task.completed %>"
+    data-due="<%= dueStatus %>"
+>
+
+
+    <!-- TASK TOP -->
+
+    <div class="task-top">
+
+
+        <h3>
+            <%= task.title %>
+        </h3>
+
+
+        <span
+            class="priority
+            <%= (task.priority || 'Medium').toLowerCase() %>">
+
+            <%= task.priority || "Medium" %>
+
+        </span>
+
+    </div>
+
+
+
+    <!-- DESCRIPTION -->
+
+    <% if (task.description) { %>
+
+        <p class="description">
+
+            <%= task.description %>
+
+        </p>
+
+    <% } %>
+
+
+
+    <!-- DUE DATE -->
+
+    <% if (task.dueDate) { %>
+
+        <div class="due <%= dueStatus %>">
+
+            📅
+
+            <%= new Date(task.dueDate)
+                .toLocaleDateString() %>
+
+
+            <% if (dueStatus === "overdue") { %>
+
+                <strong>
+                    • OVERDUE
+                </strong>
+
+            <% } %>
+
+
+            <% if (dueStatus === "today") { %>
+
+                <strong>
+                    • DUE TODAY
+                </strong>
+
+            <% } %>
+
+        </div>
+
+    <% } %>
+
+
+
+    <!-- CREATED -->
+
+    <small>
+
+        Created:
+
+        <%= new Date(task.createdAt)
+            .toLocaleDateString() %>
+
+    </small>
+
+
+
+    <!-- ACTIONS -->
+
+    <div class="task-actions">
+
+
+        <!-- COMPLETE -->
+
+        <form
+            action="/tasks/<%= task._id %>/toggle"
+            method="POST">
+
+            <button
+                class="btn small
+                <%= task.completed
+                    ? 'success'
+                    : 'complete' %>">
+
+                <%= task.completed
+                    ? "↩ Undo"
+                    : "✓ Complete" %>
+
+            </button>
+
+        </form>
+
+
+        <!-- EDIT -->
+
+        <a
+            href="/tasks/<%= task._id %>/edit"
+            class="btn small">
+
+            ✏ Edit
+
+        </a>
+
+
+        <!-- DELETE -->
+
+        <form
+            action="/tasks/<%= task._id %>/delete"
+            method="POST"
+            onsubmit="return confirm('Delete this task?')">
+
+            <button
+                class="btn small danger">
+
+                🗑
+
+            </button>
+
+        </form>
+
+    </div>
+
+</article>

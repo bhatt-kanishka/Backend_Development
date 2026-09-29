@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Eisenhower Todo</title>
+
+    <link rel="stylesheet" href="/style.css">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>📝 Eisenhower Todo</h1>
+
+    <a href="/tasks/new" class="add-button">
+        + Add New Task
+    </a>
+
+
+    <div class="matrix">
+
+
+        <!-- ========================= -->
+        <!-- DO -->
+        <!-- Urgent + Important -->
+        <!-- ========================= -->
+
+        <div class="quadrant">
+
+            <h2>🔥 Do</h2>
+
+            <p class="category">
+                Urgent & Important
+            </p>
+
+
+            <% tasks
+                .filter(task =>
+                    task.isUrgent === true &&
+                    task.isImportant === true
+                )
+                .forEach(task => {
+            %>
+
+                <div class="task">
+
+                    <h3>
+                        <%= task.title %>
+                    </h3>
+
+                    <p>
+                        <%= task.description %>
+                    </p>
+
+                    <small>
+                        Created:
+                        <%= task.createdAt.toLocaleString() %>
+                    </small>
+
+
+                    <form
+                        action="/tasks/<%= task._id %>/delete"
+                        method="POST"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-button"
+                        >
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            <% }); %>
+
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- SCHEDULE -->
+        <!-- Not Urgent + Important -->
+        <!-- ========================= -->
+
+        <div class="quadrant">
+
+            <h2>📅 Schedule</h2>
+
+            <p class="category">
+                Not Urgent & Important
+            </p>
+
+
+            <% tasks
+                .filter(task =>
+                    task.isUrgent === false &&
+                    task.isImportant === true
+                )
+                .forEach(task => {
+            %>
+
+                <div class="task">
+
+                    <h3>
+                        <%= task.title %>
+                    </h3>
+
+                    <p>
+                        <%= task.description %>
+                    </p>
+
+                    <small>
+                        Created:
+                        <%= task.createdAt.toLocaleString() %>
+                    </small>
+
+
+                    <form
+                        action="/tasks/<%= task._id %>/delete"
+                        method="POST"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-button"
+                        >
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            <% }); %>
+
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- DELEGATE -->
+        <!-- Urgent + Not Important -->
+        <!-- ========================= -->
+
+        <div class="quadrant">
+
+            <h2>👥 Delegate</h2>
+
+            <p class="category">
+                Urgent & Not Important
+            </p>
+
+
+            <% tasks
+                .filter(task =>
+                    task.isUrgent === true &&
+                    task.isImportant === false
+                )
+                .forEach(task => {
+            %>
+
+                <div class="task">
+
+                    <h3>
+                        <%= task.title %>
+                    </h3>
+
+                    <p>
+                        <%= task.description %>
+                    </p>
+
+                    <small>
+                        Created:
+                        <%= task.createdAt.toLocaleString() %>
+                    </small>
+
+
+                    <form
+                        action="/tasks/<%= task._id %>/delete"
+                        method="POST"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-button"
+                        >
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            <% }); %>
+
+
+        </div>
+
+
+
+        <!-- ========================= -->
+        <!-- ELIMINATE -->
+        <!-- Not Urgent + Not Important -->
+        <!-- ========================= -->
+
+        <div class="quadrant">
+
+            <h2>🗑️ Eliminate</h2>
+
+            <p class="category">
+                Not Urgent & Not Important
+            </p>
+
+
+            <% tasks
+                .filter(task =>
+                    task.isUrgent === false &&
+                    task.isImportant === false
+                )
+                .forEach(task => {
+            %>
+
+                <div class="task">
+
+                    <h3>
+                        <%= task.title %>
+                    </h3>
+
+                    <p>
+                        <%= task.description %>
+                    </p>
+
+                    <small>
+                        Created:
+                        <%= task.createdAt.toLocaleString() %>
+                    </small>
+
+
+                    <form
+                        action="/tasks/<%= task._id %>/delete"
+                        method="POST"
+                    >
+
+                        <button
+                            type="submit"
+                            class="delete-button"
+                        >
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            <% }); %>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

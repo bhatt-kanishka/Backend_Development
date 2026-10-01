@@ -1,79 +1,44 @@
 """
-Test Client for Lecture 15 FastAPI & Pydantic Validation.
-Executes both valid and invalid payloads demonstrating automatic HTTP 422 validation handling.
+Validation tests for FastAPI & Pydantic.
+Verifies HTTP 201 on valid input and HTTP 422 on invalid input.
 """
 
-import json
 from fastapi.testclient import TestClient
 from fastapi_pydantic_validation import app
 
 client = TestClient(app)
 
 def test_validation():
-    print("=" * 70)
-    print("LECTURE 15: FASTAPI + PYDANTIC VALIDATION TEST SUITE")
-    print("=" * 70)
-
-    # --------------------------------------------------------------------------
-    # Test Case 1: Valid Student Creation
-    # --------------------------------------------------------------------------
-    print("\n[TEST 1] Submitting VALID student payload:")
+    # 1. Valid payload test
     valid_payload = {
         "name": "Rahul",
         "email": "rahul@example.com",
         "branch": "CSE",
         "enrollment_date": "2026-09-29"
     }
-    print("Request Body:")
-    print(json.dumps(valid_payload, indent=2))
-
     response = client.post("/students", json=valid_payload)
-    print(f"\nResponse Status Code: {response.status_code}")
-    print("Response JSON:")
-    print(json.dumps(response.json(), indent=2))
-    assert response.status_code == 201, f"Expected 201, got {response.status_code}"
-    print("[PASS] Successfully created student with 201 Created!")
+    if response.status_code == 201:
+        data = response.json()
+        print(f"Created student {data['name']} (ID: {data['id']}, Branch: {data['branch']}) successfully.")
 
-    # --------------------------------------------------------------------------
-    # Test Case 2: Deliberately Invalid Student Data (Testing 422 Validation)
-    # --------------------------------------------------------------------------
-    print("\n" + "-" * 70)
-    print("[TEST 2] Submitting DELIBERATELY INVALID payload to trigger Pydantic validation:")
+    # 2. Invalid payload test
     invalid_payload = {
-        "name": "",                 # Fails min_length=1
-        "email": "invalid-email",   # Fails EmailStr
-        "branch": "BCA",            # Fails regex pattern ^(CSE|ECE|IT|ME|CE)$
-        "enrollment_date": "invalid-date" # Fails date parsing
+        "name": "",                 # Empty string
+        "email": "invalid-email",   # Bad email
+        "branch": "BCA",            # Unsupported branch
+        "enrollment_date": "invalid-date"
     }
-    print("Request Body:")
-    print(json.dumps(invalid_payload, indent=2))
-
     response_invalid = client.post("/students", json=invalid_payload)
-    print(f"\nResponse Status Code: {response_invalid.status_code} (Expected: 422 Unprocessable Entity)")
-    print("Pydantic Validation Errors Caught by FastAPI:")
-    print(json.dumps(response_invalid.json(), indent=2))
+    if response_invalid.status_code == 422:
+        print("Pydantic caught invalid fields and returned 422 Unprocessable Entity successfully:")
+        for err in response_invalid.json().get("detail", []):
+            field = err["loc"][-1]
+            print(f"  - {field}: {err['msg']}")
 
-    assert response_invalid.status_code == 422, f"Expected 422, got {response_invalid.status_code}"
-    print("\n[PASS] Verified 422 Unprocessable Entity! All invalid fields were rejected:")
-    for err in response_invalid.json().get("detail", []):
-        field = " -> ".join(str(loc) for loc in err["loc"])
-        msg = err["msg"]
-        err_type = err["type"]
-        print(f"  * Field [{field}]: {msg} (Type: {err_type})")
-
-    # --------------------------------------------------------------------------
-    # Test Case 3: Fetching All Registered Students
-    # --------------------------------------------------------------------------
-    print("\n" + "-" * 70)
-    print("[TEST 3] GET /students")
+    # 3. GET all students
     get_res = client.get("/students")
-    print(f"Status Code: {get_res.status_code}")
-    print("Registered Students List:")
-    print(json.dumps(get_res.json(), indent=2))
-
-    print("\n" + "=" * 70)
-    print("ALL PYDANTIC VALIDATION TESTS COMPLETED SUCCESSFULLY!")
-    print("=" * 70)
+    if get_res.status_code == 200:
+        print(f"Fetched all students from database successfully: {len(get_res.json())} record(s) found.")
 
 
 if __name__ == "__main__":

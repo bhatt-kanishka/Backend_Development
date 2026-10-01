@@ -1,43 +1,29 @@
-# Backend Development Repository
+# Backend Development Hub 🚀
 
-Welcome to the **Backend Development** repository. This repository serves as a centralized hub for hands-on laboratory experiments, academic coursework, and architectural demonstrations covering modern backend engineering practices.
+[![Node.js](https://img.shields.io/badge/Node.js-v20+-43853D?style=flat&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-5.x-000000?style=flat&logo=express&logoColor=white)](https://expressjs.com/)
+[![Python](https://img.shields.io/badge/Python-3.14-3776AB?style=flat&logo=python&logoColor=white)](https://python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=flat&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.0+-D71F00?style=flat&logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?style=flat&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-psycopg2-4169E1?style=flat&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-It encompasses practical implementations across multiple runtime environments (**Node.js** and **Python**), web frameworks (**Express.js**, **FastAPI**, **Flask**), templating engines (**EJS**, **Jinja2**), state management techniques (Cookies, Sessions, Web Storage API), and database integration (**MongoDB**, **PostgreSQL**).
+A comprehensive, production-grade backend engineering curriculum and laboratory portfolio. This repository bridges modern web protocols, API architectures, server-side rendering, client/server state persistence, and full database modeling across both **Node.js / Express** and **Python (FastAPI, Flask, SQLAlchemy)** ecosystems.
 
 ---
 
 ## Table of Contents
 
-- [Backend Development Repository](#backend-development-repository)
-  - [Table of Contents](#table-of-contents)
-  - [Technology Stack Matrix](#technology-stack-matrix)
-  - [Repository Architecture](#repository-architecture)
-  - [Folder & Module Documentation](#folder--module-documentation)
-    - [1. Laboratory Experiments (`Lab/`)](#1-laboratory-experiments-lab)
-    - [2. Theory Practical Tasks (`Theory/`)](#2-theory-practical-tasks-theory)
-    - [3. Standalone Applications & Demos](#3-standalone-applications--demos)
-    - [4. Database Environments (`postgres/` \& `psql/`)](#4-database-environments-postgres--psql)
-    - [5. Root Files \& Assets](#5-root-files--assets)
-  - [Prerequisites \& Global Setup](#prerequisites--global-setup)
-    - [Node.js Setup](#nodejs-setup)
-    - [Python Setup](#python-setup)
-  - [Quick-Start Execution Cheat Sheet](#quick-start-execution-cheat-sheet)
-
----
-
-## Technology Stack Matrix
-
-| Category | Technologies / Libraries | Description / Usage |
-| :--- | :--- | :--- |
-| **Runtimes** | Node.js, Python 3.14 | Core execution environments |
-| **Web Frameworks** | Express.js 5.x, FastAPI, Flask | HTTP server routing, REST API creation, request lifecycle |
-| **ASGI / WSGI Servers** | Uvicorn, Werkzeug | High-concurrency ASGI server for FastAPI; WSGI server for Flask |
-| **Templating (SSR)** | EJS (Node.js), Jinja2 (Python) | Server-Side Rendering of dynamic HTML views with embedded data |
-| **Databases** | MongoDB (NoSQL), PostgreSQL (SQL) | Document-oriented and relational database management |
-| **Database Drivers** | `mongodb` (Node.js), `psycopg2` (Python) | Native database connectivity and operations |
-| **State Management** | `cookie-parser`, `express-session`, Web Storage API | Client cookies, server sessions, `localStorage`, `sessionStorage` |
-| **Developer Tooling** | Nodemon, npm, Python venv | Process watching, hot-reloading, package management |
-| **Frontend Basics** | HTML5 Semantic Elements, CSS3, JavaScript | User interfaces for full-stack and lab demonstrations |
+- [Repository Architecture](#repository-architecture)
+- [Technology Matrix](#technology-matrix)
+- [Curriculum Breakdown](#curriculum-breakdown)
+  - [1. Laboratory Experiments (`Lab/`)](#1-laboratory-experiments-lab)
+  - [2. Theory Practical Curriculum (`Theory/`)](#2-theory-practical-curriculum-theory)
+  - [3. Database Environments (`postgres/` & `psql/`)](#3-database-environments)
+  - [4. Standalone Applications](#4-standalone-applications)
+- [Quick-Start Execution Cheat Sheet](#quick-start-execution-cheat-sheet)
+- [Data Modeling & Validation Highlights](#data-modeling--validation-highlights)
 
 ---
 
@@ -45,186 +31,192 @@ It encompasses practical implementations across multiple runtime environments (*
 
 ```text
 Backend Development/
-├── Readme.md                             # Master repository guide (this file)
-├── package.json                          # Root Node.js dependencies (express)
-├── package-lock.json                     # Root npm lockfile
-├── mongodb-compass_1.45.4_amd64.deb      # MongoDB Compass GUI debian package
+├── Readme.md                             # Central Repository Guide & Showcase
+├── package.json                          # Root Node.js dependencies
 │
-├── Lab/                                  # Laboratory experiments & assessments
-│   ├── Experiment_1_Readme.md            # Documentation for Experiment 1
-│   ├── Experiment-1.html                 # Experiment 1: Semantic HTML5 elements & forms
+├── Lab/                                  # Laboratory Experiments & Full-Stack Projects
+│   ├── Readme.md                         # Laboratory Curriculum Hub
+│   ├── Experiment-1.html                 # Exp 1: Semantic HTML5 Elements & Forms
+│   ├── Experiment_1_Readme.md            # Exp 1: Documentation & Specifications
 │   │
-│   ├── Experiment_12A/                   # Experiment 12A: Express REST API & EJS SSR
-│   │   ├── Readme.md
-│   │   └── nodejs-express-lab/           # Express server, route params, calculations, EJS views
+│   ├── Experiment_12A/                   # Exp 12A: Express REST API & EJS SSR
+│   │   ├── Readme.md                     # Exp 12A Overview
+│   │   └── nodejs-express-lab/           # Full Express + EJS Application
+│   │       ├── Readme.md                 # Node.js Express Lab Guide
+│   │       ├── app.js                    # Route handlers & parameter processing
+│   │       └── views/                    # EJS dynamic UI templates
 │   │
-│   ├── Experiment12_B/                   # Experiment 12B: State Management
-│   │   ├── Readme.md
-│   │   ├── Cookies_example.js            # Client-side cookie management (cookie-parser)
+│   ├── Experiment12_B/                   # Exp 12B: State Management
+│   │   ├── Readme.md                     # Cookies & Sessions Documentation
+│   │   ├── Cookies_example.js            # Client-side cookie handling (cookie-parser)
 │   │   └── session_example.js            # Server-side session tracking (express-session)
 │   │
 │   └── lab_Assessment_B/                 # Lab Assessment: Eisenhower Matrix Todo App
-│       ├── Readme.md                     # Assessment documentation & API specifications
-│       ├── app.js                        # Full-stack Node/Express/MongoDB app
-│       ├── package.json
-│       ├── public/                       # CSS styles & client assets
-│       └── views/                        # EJS dynamic UI templates
+│       ├── Readme.md                     # Full-stack architecture & API specs
+│       ├── app.js                        # Express server with native MongoDB driver
+│       └── views/                        # Dynamic priority matrix dashboard
 │
-├── Theory/                               # Theory tasks and practical modules
-│   ├── Readme.md                         # Theory master documentation
-│   ├── demo.js                           # Python Flask reference script
+├── Theory/                               # Academic Theory Tasks & Practical Implementations
+│   ├── Readme.md                         # Theory Curriculum Hub
+│   │
+│   ├── Unit-1/                           # Unit 1: Foundations of Backend Development
+│   │   └── Readme.md                     # Client-Server, HTTP Protocols & REST
 │   │
 │   ├── task-2/                           # Task 2: Student Management REST API in Flask
-│   │   ├── Readme.md
-│   │   ├── app.py                        # Flask API with dynamic routes and 404 handling
-│   │   └── backend-project/venv/         # Python virtual environment
+│   │   ├── Readme.md                     # Microframework routing & 404 handling
+│   │   └── app.py                        # Flask API server
 │   │
 │   ├── Task_3/                           # Task 3: REST API with FastAPI & Uvicorn
-│   │   ├── Readme.md
-│   │   ├── main.py                       # FastAPI app with auto Swagger UI at /docs
-│   │   └── venv/                         # Python virtual environment
+│   │   ├── Readme.md                     # ASGI architecture & Swagger UI
+│   │   └── main.py                       # FastAPI application
 │   │
-│   ├── Task_4/                           # Task 4: Nodemon Developer Workflow & Tooling
-│   │   └── Readme.md
+│   ├── Task_4/                           # Task 4: Nodemon Developer Workflow
+│   │   └── Readme.md                     # File watching & hot-reloading DX
 │   │
 │   ├── ssr_demmo_Task_5/                 # Task 5: Server-Side Rendering (FastAPI + Jinja2)
-│   │   ├── Readme.md
+│   │   ├── Readme.md                     # Jinja2 template interpolation & loops
 │   │   ├── main.py                       # FastAPI SSR server
-│   │   ├── Templates/                    # Jinja2 HTML templates (students.html, home.html)
-│   │   └── venv/                         # Python virtual environment
+│   │   └── Templates/                    # Jinja2 HTML views
 │   │
-│   ├── Task-6/                           # Task 6: Client-Side Web Storage Architecture
+│   ├── Task-6/                           # Task 6: Client-Side State & Web Storage
+│   │   ├── Readme.md                     # Storage mechanisms comparison
 │   │   └── lecture7/                     # Lecture 7: To-Do App (localStorage vs sessionStorage)
 │   │       ├── Readme.md
 │   │       ├── index.html
-│   │       ├── style.css
 │   │       └── script.js
 │   │
-│   ├── express-demo/                     # Theory Express.js intro server
-│   │   ├── Readme.md
-│   │   └── server.js
+│   ├── Lecture_15/                       # Lecture 15: Data Modeling (ORM & ODM)
+│   │   ├── Readme.md                     # Conceptual, Logical, & Physical Data Modeling
+│   │   └── ORM/                          # Complete ORM/ODM Implementations
+│   │       ├── Readme.md                 # Master Guide (ER diagrams & CRUD analysis)
+│   │       ├── Database.py               # SQLAlchemy Student Management & Cascade Deletion
+│   │       ├── ecommerce_models.py       # PBL Activity: E-Commerce SQLAlchemy System
+│   │       ├── ecommerce_mongoose.js     # PBL Activity: E-Commerce Mongoose ODM
+│   │       ├── fastapi_pydantic_validation.py # Pydantic Request Validation (HTTP 201 & 422)
+│   │       ├── test_fastapi_validation.py     # Automated Pydantic Validation Test Suite
+│   │       ├── mongoose_models.js        # Mongoose Student & Blog (Post/Comment) Schemas
+│   │       ├── physical_schema.sql       # PostgreSQL DDL with Constraints & Indexes
+│   │       ├── save_to_mongodb.js        # MongoDB Compass populator script
+│   │       └── run_all.py                # Unified Test Runner
 │   │
-│   └── Unit-1/                           # Academic Unit 1 resources
+│   └── Lecture_16/                       # Lecture 16: Database CRUD Operations
+│       └── Readme.md                     # CRUD lifecycle, transactions, & pooling
 │
-├── express-demo/                         # Root standalone Express server demo
+├── nodejs-express-lab/                   # Root Standalone Express + EJS Lab Application
+│   ├── Readme.md
+│   ├── app.js
+│   └── views/
+│
+├── express-demo/                         # Root Standalone Express Server Intro
 │   ├── Readme.md
 │   └── server.js
 │
-├── nodejs-express-lab/                   # Root standalone Node.js, Express & EJS lab
-│   ├── Readme.md
-│   ├── app.js
-│   ├── script.js
-│   └── views/
+├── postgres/                             # PostgreSQL Python Virtual Environment
+│   └── Readme.md                         # psycopg2 & SQLAlchemy driver configuration
 │
-├── postgres/                             # PostgreSQL Python development virtual environment
-│   ├── Readme.md                         # PostgreSQL setup, driver installation, and sample code
-│   └── pyvenv.cfg
-│
-└── psql/                                 # PostgreSQL CLI administration virtual environment
-    ├── Readme.md                         # psql commands cheat sheet and configuration
-    └── pyvenv.cfg
+└── psql/                                 # PostgreSQL Administration Environment
+    └── Readme.md                         # psql CLI cheat sheet & schema management
 ```
 
 ---
 
-## Folder & Module Documentation
+## Technology Matrix
 
-### 1. Laboratory Experiments ([`Lab/`](file:///d:/Desktop/Backend%20Development/Lab/))
-
-* **[Experiment 1: HTML5 Elements Demonstration](file:///d:/Desktop/Backend%20Development/Lab/Experiment_1_Readme.md)**
-  * **File:** [`Experiment-1.html`](file:///d:/Desktop/Backend%20Development/Lab/Experiment-1.html)
-  * **Topics:** Semantic structuring (`<header>`, `<nav>`, `<section>`, `<article>`, `<aside>`, `<footer>`), advanced `<form>` elements (date, tel, search, radio, checkboxes, select), tabular layout, `<canvas>` 2D graphics context, and native `<audio>`/`<video>` multimedia controls.
-
-* **[Experiment 12A: REST APIs & EJS Views in Express.js](file:///d:/Desktop/Backend%20Development/Lab/Experiment_12A/Readme.md)**
-  * **Directory:** [`Experiment_12A/nodejs-express-lab/`](file:///d:/Desktop/Backend%20Development/Lab/Experiment_12A/nodejs-express-lab/)
-  * **Topics:** Express HTTP routing, request parameters (`req.params.id`), query parsing (`req.query` for search & calculation operations), POST body parsing (`express.json()`), mock authentication (`/login`, `/register`), and dynamic template rendering with EJS (`home.ejs`, `users.ejs`, `profile.ejs`).
-
-* **[Experiment 12B: State Management (Cookies & Sessions)](file:///d:/Desktop/Backend%20Development/Lab/Experiment12_B/Readme.md)**
-  * **Files:** [`Cookies_example.js`](file:///d:/Desktop/Backend%20Development/Lab/Experiment12_B/Cookies_example.js) & [`session_example.js`](file:///d:/Desktop/Backend%20Development/Lab/Experiment12_B/session_example.js)
-  * **Topics:** Statelessness of HTTP protocol, client-side cookies with `cookie-parser` (setting, reading, clearing with TTL maxAge), and server-side sessions with `express-session` (visit counters, secret-signed session cookies, session destruction).
-
-* **[Lab Assessment B: Eisenhower Matrix Todo Application](file:///d:/Desktop/Backend%20Development/Lab/lab_Assessment_B/Readme.md)**
-  * **Directory:** [`Lab/lab_Assessment_B/`](file:///d:/Desktop/Backend%20Development/Lab/lab_Assessment_B/)
-  * **Topics:** Production-style CRUD backend using Node.js, Express.js, MongoDB native driver, and EJS. Implements the Eisenhower Decision Matrix (Do, Schedule, Delegate, Eliminate), search, filtering, sorting, priority calculation, and dark mode.
+| Technology | Category | Role in Repository | Notable Characteristics |
+| :--- | :--- | :--- | :--- |
+| **Node.js** | Runtime | Primary JavaScript execution environment | Asynchronous, non-blocking I/O event loop |
+| **Express.js** | Framework | REST APIs & SSR routing | Minimalist, unopinionated, extensive middleware |
+| **Python** | Runtime | Data modeling & modern backend services | Strict typing, readability, extensive ecosystem |
+| **FastAPI** | Framework | High-performance ASGI REST APIs | Auto OpenAPI/Swagger UI, Pydantic validation |
+| **Flask** | Framework | Microframework REST APIs | Lightweight WSGI server, simple routing patterns |
+| **SQLAlchemy** | ORM | Relational database mapping | `back_populates` relationships, cascade deletes |
+| **Mongoose** | ODM | Document database modeling | Schema validation, regex matching, embedded models |
+| **MongoDB** | Database | NoSQL document storage | Flexible JSON-like BSON documents, dynamic schemas |
+| **PostgreSQL** | Database | Relational SQL database | ACID compliance, strict foreign keys, check constraints |
+| **EJS / Jinja2** | Templating | Server-Side Rendering (SSR) | HTML generation with dynamic server variable injection |
 
 ---
 
-### 2. Theory Practical Tasks ([`Theory/`](file:///d:/Desktop/Backend%20Development/Theory/Readme.md))
+## Curriculum Breakdown
 
-* **[Task 2: Flask REST API](file:///d:/Desktop/Backend%20Development/Theory/task-2/Readme.md)**
-  * **File:** [`Theory/task-2/app.py`](file:///d:/Desktop/Backend%20Development/Theory/task-2/app.py)
-  * **Features:** Microframework routing, student collection endpoint (`GET /students`), parameterized single lookup (`GET /students/<int:student_id>`), and structured 404 JSON error handling.
+### 1. Laboratory Experiments ([`Lab/`](file:///d:/Desktop/Backend%20Development/Lab/Readme.md))
 
-* **[Task 3: FastAPI & Uvicorn REST API](file:///d:/Desktop/Backend%20Development/Theory/Task_3/Readme.md)**
-  * **File:** [`Theory/Task_3/main.py`](file:///d:/Desktop/Backend%20Development/Theory/Task_3/main.py)
-  * **Features:** High-performance asynchronous REST API running on Uvicorn ASGI server with automated Swagger UI documentation at `http://127.0.0.1:8000/docs`.
-
-* **[Task 4: Nodemon Developer Workflow](file:///d:/Desktop/Backend%20Development/Theory/Task_4/Readme.md)**
-  * **Features:** File system process watching, auto-reloading Node.js server scripts upon file modifications, and `nodemon.json` configuration strategies.
-
-* **[Task 5: Server-Side Rendering with FastAPI & Jinja2](file:///d:/Desktop/Backend%20Development/Theory/ssr_demmo_Task_5/Readme.md)**
-  * **Files:** [`Theory/ssr_demmo_Task_5/main.py`](file:///d:/Desktop/Backend%20Development/Theory/ssr_demmo_Task_5/main.py) & [`Templates/`](file:///d:/Desktop/Backend%20Development/Theory/ssr_demmo_Task_5/Templates/)
-  * **Features:** SSR architecture, Jinja2 template interpolation, conditional logic, and looping through dynamic student arrays inside server-rendered HTML.
-
-* **[Task 6 / Lecture 7: Web Storage API (localStorage & sessionStorage)](file:///d:/Desktop/Backend%20Development/Theory/Task-6/lecture7/Readme.md)**
-  * **Directory:** [`Theory/Task-6/lecture7/`](file:///d:/Desktop/Backend%20Development/Theory/Task-6/lecture7/)
-  * **Features:** Client-side data persistence without a database, differences between `localStorage` (persistent across sessions) and `sessionStorage` (tab lifecycle), JSON stringification, and DOM manipulation.
-
-* **[Theory Express Demo](file:///d:/Desktop/Backend%20Development/Theory/express-demo/Readme.md)**
-  * **File:** [`Theory/express-demo/server.js`](file:///d:/Desktop/Backend%20Development/Theory/express-demo/server.js)
-  * **Features:** Introductory Express application demonstrating route registration and port binding.
+* **[Experiment 1: Semantic HTML5 Elements & Web Forms](file:///d:/Desktop/Backend%20Development/Lab/Experiment_1_Readme.md)**: Semantic page structure (`<header>`, `<nav>`, `<section>`, `<footer>`), input validation types, native `<canvas>` 2D graphics, and HTML5 `<audio>`/`<video>` controls.
+* **[Experiment 12A: Express REST API & EJS SSR](file:///d:/Desktop/Backend%20Development/Lab/Experiment_12A/Readme.md)**: Route parameters (`:id`), query parsing (`req.query` calculator), POST body handling, and dynamic template rendering.
+* **[Experiment 12B: State Management](file:///d:/Desktop/Backend%20Development/Lab/Experiment12_B/Readme.md)**: Stateless HTTP mitigation using `cookie-parser` for client cookies and `express-session` for signed server-side session counters.
+* **[Lab Assessment B: Eisenhower Matrix Application](file:///d:/Desktop/Backend%20Development/Lab/lab_Assessment_B/Readme.md)**: Production-style CRUD application integrating Express.js, EJS, and native MongoDB driver to manage priority-classified tasks.
 
 ---
 
-### 3. Standalone Applications & Demos
+### 2. Theory Practical Curriculum ([`Theory/`](file:///d:/Desktop/Backend%20Development/Theory/Readme.md))
 
-* **[Express Demo (`express-demo/`)](file:///d:/Desktop/Backend%20Development/express-demo/Readme.md)**: Standalone Express server located at the repository root.
-* **[Node.js Express Lab (`nodejs-express-lab/`)](file:///d:/Desktop/Backend%20Development/nodejs-express-lab/Readme.md)**: Complete full-featured Express + EJS lab application located at the repository root.
-
----
-
-### 4. Database Environments ([`postgres/`](file:///d:/Desktop/Backend%20Development/postgres/Readme.md) & [`psql/`](file:///d:/Desktop/Backend%20Development/psql/Readme.md))
-
-* **[`postgres/`](file:///d:/Desktop/Backend%20Development/postgres/Readme.md)**: Dedicated Python virtual environment configured for connecting to PostgreSQL instances using Python database adapters (`psycopg2-binary`, `asyncpg`, `SQLAlchemy`).
-* **[`psql/`](file:///d:/Desktop/Backend%20Development/psql/Readme.md)**: Dedicated Python environment and documentation reference for PostgreSQL command-line administration tools and schema migration workflows.
-
----
-
-### 5. Root Files & Assets
-
-* [`package.json`](file:///d:/Desktop/Backend%20Development/package.json): Root project descriptor specifying dependencies (e.g. Express 5.x).
-* `mongodb-compass_1.45.4_amd64.deb`: Debian package installer for the MongoDB Compass GUI client.
-* `.gitignore`: Configured to exclude operating system artifacts and sensitive files from git tracking.
+* **[Unit 1: Foundations](file:///d:/Desktop/Backend%20Development/Theory/Unit-1/Readme.md)**: Network protocols, HTTP request/response cycle, status codes, and REST architectural constraints.
+* **[Task 2: Flask REST API](file:///d:/Desktop/Backend%20Development/Theory/task-2/Readme.md)**: Python microframework routing, JSON responses with `jsonify()`, and custom 404 error handlers.
+* **[Task 3: FastAPI REST API](file:///d:/Desktop/Backend%20Development/Theory/Task_3/Readme.md)**: High-concurrency ASGI service with Uvicorn and interactive Swagger UI at `/docs`.
+* **[Task 4: Nodemon DX](file:///d:/Desktop/Backend%20Development/Theory/Task_4/Readme.md)**: File-watcher-based auto-reloading developer workflow.
+* **[Task 5: Server-Side Rendering](file:///d:/Desktop/Backend%20Development/Theory/ssr_demmo_Task_5/Readme.md)**: Dynamic server-rendered HTML views using FastAPI and Jinja2 templates.
+* **[Task 6 / Lecture 7: Web Storage API](file:///d:/Desktop/Backend%20Development/Theory/Task-6/lecture7/Readme.md)**: Browser storage comparison between persistent `localStorage` and session-scoped `sessionStorage`.
+* **[Lecture 15: Data Modeling (ORM & ODM)](file:///d:/Desktop/Backend%20Development/Theory/Lecture_15/ORM/Readme.md)**:
+  - **Conceptual, Logical, and Physical Models**: ER diagrams, data types, constraints, and PostgreSQL physical DDL.
+  - **SQLAlchemy ORM**: Student Management System with bidirectional `back_populates` and cascade deletion verification.
+  - **PBL Activity (E-Commerce System)**: Full shopping cart, checkout, and inventory workflow in SQLAlchemy and Mongoose.
+  - **Validation Pipelines**: Pydantic request validation (HTTP 201 & 422 error interception) and Mongoose schema constraints.
+* **[Lecture 16: Database CRUD Operations](file:///d:/Desktop/Backend%20Development/Theory/Lecture_16/Readme.md)**: ACID transaction management, connection pooling, and SQL vs NoSQL query patterns.
 
 ---
 
-## Prerequisites & Global Setup
+### 3. Database Environments
 
-### Node.js Setup
-Ensure Node.js (version 18+ or 20+ recommended) is installed on your system:
-```bash
-node -v
-npm -v
-```
-
-### Python Setup
-Ensure Python 3.10+ (current system uses Python 3.14) is installed:
-```bash
-python --version
-```
+* **[`postgres/`](file:///d:/Desktop/Backend%20Development/postgres/Readme.md)**: Dedicated Python environment and connection guides for PostgreSQL database drivers (`psycopg2-binary`, `asyncpg`, `SQLAlchemy`).
+* **[`psql/`](file:///d:/Desktop/Backend%20Development/psql/Readme.md)**: PostgreSQL CLI administration cheat sheet, user management, and schema migration commands.
 
 ---
 
 ## Quick-Start Execution Cheat Sheet
 
-| Task / Experiment | Folder Path | Command to Execute | Access URL |
+| Module | Location | Execution Command | Port / Access |
 | :--- | :--- | :--- | :--- |
-| **HTML5 Demo** | `Lab/` | `Start-Process Experiment-1.html` | In browser |
+| **HTML5 Elements** | `Lab/` | `Start-Process Experiment-1.html` | Browser |
 | **Express Lab 12A** | `Lab/Experiment_12A/nodejs-express-lab` | `npm install && node app.js` | `http://localhost:3000` |
 | **Cookies Demo** | `Lab/Experiment12_B` | `node Cookies_example.js` | `http://localhost:3000/set-cookie` |
 | **Sessions Demo** | `Lab/Experiment12_B` | `node session_example.js` | `http://localhost:3000` |
 | **Eisenhower Todo** | `Lab/lab_Assessment_B` | `npm install && node app.js` | `http://localhost:3000` |
-| **Flask API (Task 2)** | `Theory/task-2` | `pip install flask && python app.py` | `http://127.0.0.1:5000/students` |
-| **FastAPI REST (Task 3)** | `Theory/Task_3` | `pip install fastapi uvicorn && python main.py` | `http://127.0.0.1:8000/docs` |
-| **FastAPI SSR (Task 5)** | `Theory/ssr_demmo_Task_5` | `pip install fastapi uvicorn jinja2 && python main.py` | `http://127.0.0.1:8000/` |
-| **To-Do Web Storage** | `Theory/Task-6/lecture7` | `Start-Process index.html` | In browser |
+| **Flask API (Task 2)** | `Theory/task-2` | `python app.py` | `http://127.0.0.1:5000/students` |
+| **FastAPI (Task 3)** | `Theory/Task_3` | `python main.py` | `http://127.0.0.1:8000/docs` |
+| **FastAPI SSR (Task 5)** | `Theory/ssr_demmo_Task_5` | `python main.py` | `http://127.0.0.1:8000/` |
+| **Web Storage To-Do** | `Theory/Task-6/lecture7` | `Start-Process index.html` | Browser |
+| **SQLAlchemy ORM (L15)**| `Theory/Lecture_15/ORM` | `python Database.py` | CLI Output |
+| **E-Commerce PBL (L15)** | `Theory/Lecture_15/ORM` | `python ecommerce_models.py` | CLI Output |
+| **FastAPI Validation** | `Theory/Lecture_15/ORM` | `python test_fastapi_validation.py` | CLI Output (201 & 422) |
+| **Mongoose ODM (L15)** | `Theory/Lecture_15/ORM` | `node mongoose_models.js` | CLI Output |
+| **Lecture 15 All-in-One**| `Theory/Lecture_15/ORM` | `python run_all.py` | CLI Output |
+
+---
+
+## Data Modeling & Validation Highlights
+
+```mermaid
+graph TD
+    subgraph Client Layer
+        A["HTTP Request / JSON Payload"]
+    end
+
+    subgraph Validation Layer
+        B{"Pydantic / Mongoose Schema"}
+        B -- "Invalid Data" --> C["HTTP 422 Unprocessable Entity"]
+        B -- "Valid Data" --> D["Type-Safe Model Object"]
+    end
+
+    subgraph ORM / ODM Layer
+        D --> E["SQLAlchemy Session / Mongoose Document"]
+    end
+
+    subgraph Persistence Layer
+        E --> F[("Relational DB (PostgreSQL / SQLite)")]
+        E --> G[("Document DB (MongoDB)")]
+    end
+```
+
+* **Zero corrupted state:** Strict validation occurs before route handlers or persistence layers touch the database.
+* **Cascade safety:** Child rows (e.g. enrollments, order items) are automatically cleaned up when parent records are deleted, preventing orphaned data.
+* **Database Agnostic:** Switching between development (SQLite) and production (PostgreSQL) requires updating only the connection URI without rewriting domain logic.

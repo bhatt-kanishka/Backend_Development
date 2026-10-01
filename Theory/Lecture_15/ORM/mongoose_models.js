@@ -1,17 +1,11 @@
 /**
- * Lecture 15: Object Document Modeling (ODM) & Validation with Mongoose (Node.js)
- * Covers:
- *   - Section 4.2: Mongoose Basics & Student Schema
- *   - Section 5.2: Built-in Mongoose Validations (required, regex, enum, min/max)
- *   - Lab Exercise 4 & 5: Blog Application (Post & Comment Models with Validation)
+ * Lecture 15: Mongoose ODM and Schema Validation
+ * Student schema & Blog application (Post & Comment)
  */
 
 const mongoose = require('mongoose');
 
-// ==============================================================================
-// 1. Student Schema with Comprehensive Validations (Sections 4.2 & 5.2)
-// ==============================================================================
-
+// 1. Student Schema with validations
 const studentSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -33,7 +27,7 @@ const studentSchema = new mongoose.Schema({
     required: [true, 'Branch is required'],
     enum: {
       values: ['CSE', 'ECE', 'IT', 'ME', 'CE'],
-      message: '{VALUE} is not a valid engineering branch'
+      message: '{VALUE} is not an accepted branch'
     }
   },
   age: {
@@ -50,208 +44,103 @@ const studentSchema = new mongoose.Schema({
     ref: 'Course'
   }]
 }, {
-  timestamps: true // Best practice from Section 6: adds createdAt and updatedAt
+  timestamps: true
 });
 
 const Student = mongoose.model('Student', studentSchema);
 
-
-// ==============================================================================
-// 2. Blog Application: Post & Comment Models (Lab Exercise Tasks 4 & 5)
-// ==============================================================================
-
-// Subdocument Schema for Comments
+// 2. Blog Schemas (Post & Comment)
 const commentSchema = new mongoose.Schema({
-  author: {
-    type: String,
-    required: [true, 'Comment author is required'],
-    trim: true
-  },
-  content: {
-    type: String,
-    required: [true, 'Comment content cannot be empty'],
-    minlength: [2, 'Comment must have at least 2 characters'],
-    maxlength: [500, 'Comment cannot exceed 500 characters']
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
+  author: { type: String, required: [true, 'Author is required'], trim: true },
+  content: { type: String, required: [true, 'Comment cannot be empty'], minlength: 2, maxlength: 500 },
+  createdAt: { type: Date, default: Date.now }
 });
 
-// Main Blog Post Schema
 const postSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: [true, 'Post title is required'],
-    trim: true,
-    minlength: [3, 'Title must be at least 3 characters'],
-    maxlength: [200, 'Title cannot exceed 200 characters']
-  },
-  slug: {
-    type: String,
-    lowercase: true,
-    trim: true
-  },
-  content: {
-    type: String,
-    required: [true, 'Post content is required']
-  },
-  author: {
-    type: String,
-    required: [true, 'Author is required'],
-    trim: true
-  },
+  title: { type: String, required: true, minlength: 3, maxlength: 200, trim: true },
+  slug: { type: String, lowercase: true, trim: true },
+  content: { type: String, required: true },
+  author: { type: String, required: true, trim: true },
   category: {
     type: String,
-    required: [true, 'Category is required'],
-    enum: {
-      values: ['Backend', 'Database', 'Cloud', 'Architecture', 'Tutorial'],
-      message: '{VALUE} is not an accepted category'
-    }
+    required: true,
+    enum: ['Backend', 'Database', 'Cloud', 'Architecture', 'Tutorial']
   },
   status: {
     type: String,
-    enum: {
-      values: ['draft', 'published', 'archived'],
-      message: 'Status must be either draft, published, or archived'
-    },
+    enum: ['draft', 'published', 'archived'],
     default: 'draft'
   },
-  tags: [{
-    type: String,
-    lowercase: true,
-    trim: true
-  }],
-  comments: [commentSchema] // Embedded subdocuments
+  tags: [{ type: String, lowercase: true, trim: true }],
+  comments: [commentSchema]
 }, {
-  timestamps: true // Data modeling best practice
+  timestamps: true
 });
 
 const Post = mongoose.model('Post', postSchema);
 const Comment = mongoose.model('Comment', commentSchema);
 
-
-// ==============================================================================
-// 3. Validation Test Suite (Runs offline via Mongoose Schema Validator)
-// ==============================================================================
-
-async function runMongooseValidationTests() {
-  console.log('='.repeat(70));
-  console.log('LECTURE 15: MONGOOSE DATA MODELING & VALIDATION TEST SUITE');
-  console.log('='.repeat(70));
-
-  // ----------------------------------------------------------------------------
-  // Test 1: Valid Student Document
-  // ----------------------------------------------------------------------------
-  console.log('\n[TEST 1] Testing VALID Student Document:');
-  const validStudent = new Student({
+// Self-validation runner
+async function validateSchemas() {
+  // Test valid student
+  const student = new Student({
     name: 'Aarav Sharma',
     email: 'aarav@upes.ac.in',
     branch: 'CSE',
     age: 20
   });
+  await student.validate();
+  console.log(`Validated student '${student.name}' schema successfully.`);
 
-  try {
-    await validStudent.validate();
-    console.log('[PASS] Valid Student passed all schema validations successfully!');
-    console.log('  Document:', JSON.stringify(validStudent.toObject(), null, 2));
-  } catch (err) {
-    console.error('[FAIL] Unexpected validation error:', err.errors);
-  }
-
-  // ----------------------------------------------------------------------------
-  // Test 2: Invalid Student Document (Testing Validation Rules)
-  // ----------------------------------------------------------------------------
-  console.log('\n' + '-'.repeat(70));
-  console.log('[TEST 2] Testing INVALID Student Document (Catching Constraints):');
+  // Test invalid student
   const invalidStudent = new Student({
-    name: '',                       // Fails: required & minlength: 1
-    email: 'not-an-email',          // Fails: match regex /^\S+@\S+\.\S+$/
-    branch: 'CIVIL',                // Fails: enum ['CSE', 'ECE', 'IT', 'ME', 'CE']
-    age: 15                         // Fails: min: 17
+    name: '',
+    email: 'bad-email',
+    branch: 'CIVIL',
+    age: 15
   });
-
   try {
     await invalidStudent.validate();
-    console.error('[FAIL] Invalid student unexpectedly passed validation!');
-  } catch (studentErr) {
-    console.log('[PASS] Mongoose correctly intercepted and rejected invalid data:');
-    for (const [field, error] of Object.entries(studentErr.errors)) {
-      console.log(`  * Field [${field}]: ${error.message} (Kind: ${error.kind})`);
+  } catch (err) {
+    console.log("Caught invalid student fields via Mongoose schema validation successfully:");
+    for (const [key, val] of Object.entries(err.errors)) {
+      console.log(`  - ${key}: ${val.message}`);
     }
   }
 
-  // ----------------------------------------------------------------------------
-  // Test 3: Valid Blog Post with Embedded Comments (Lab Exercise 4 & 5)
-  // ----------------------------------------------------------------------------
-  console.log('\n' + '-'.repeat(70));
-  console.log('[TEST 3] Testing VALID Blog Post with Embedded Comments:');
-  const validPost = new Post({
-    title: 'Mastering Database Modeling with Mongoose & SQLAlchemy',
-    slug: 'mastering-database-modeling',
-    content: 'Data modeling defines how software structures, persists, and validates business state.',
+  // Test valid blog post
+  const post = new Post({
+    title: 'Data Modeling with Mongoose and SQLAlchemy',
+    slug: 'data-modeling-mongoose-sqlalchemy',
+    content: 'Data models bridge business requirements and database schemas.',
     author: 'Kanishka Bhatt',
     category: 'Backend',
     status: 'published',
-    tags: ['mongodb', 'mongoose', 'orm', 'nodejs'],
-    comments: [
-      {
-        author: 'Rohan',
-        content: 'Clear explanation of conceptual vs logical models!'
-      }
-    ]
+    tags: ['mongodb', 'mongoose', 'nodejs'],
+    comments: [{ author: 'Rohan', content: 'Great breakdown of conceptual and logical models!' }]
   });
+  await post.validate();
+  console.log(`Validated blog post '${post.title}' with ${post.comments.length} comment(s) successfully.`);
 
-  try {
-    await validPost.validate();
-    console.log('[PASS] Valid Blog Post and embedded comments passed validation!');
-    console.log('  Post Title:', validPost.title);
-    console.log('  Category:', validPost.category);
-    console.log('  Status:', validPost.status);
-    console.log('  Comments count:', validPost.comments.length);
-  } catch (err) {
-    console.error('[FAIL] Unexpected error on valid post:', err.errors);
-  }
-
-  // ----------------------------------------------------------------------------
-  // Test 4: Invalid Blog Post (Testing enum and required rules)
-  // ----------------------------------------------------------------------------
-  console.log('\n' + '-'.repeat(70));
-  console.log('[TEST 4] Testing INVALID Blog Post:');
+  // Test invalid blog post
   const invalidPost = new Post({
-    title: 'AB',                     // Fails: minlength 3
-    content: '',                     // Fails: required
-    author: '',                      // Fails: required
-    category: 'InvalidCategory',     // Fails: enum
-    status: 'pending_approval'       // Fails: enum
+    title: 'Hi',
+    content: '',
+    author: '',
+    category: 'InvalidCategory'
   });
-
   try {
     await invalidPost.validate();
-    console.error('[FAIL] Invalid post unexpectedly passed validation!');
-  } catch (postErr) {
-    console.log('[PASS] Mongoose correctly caught invalid blog post fields:');
-    for (const [field, error] of Object.entries(postErr.errors)) {
-      console.log(`  * Field [${field}]: ${error.message}`);
+  } catch (err) {
+    console.log("Caught invalid blog post fields via Mongoose schema validation successfully:");
+    for (const [key, val] of Object.entries(err.errors)) {
+      console.log(`  - ${key}: ${val.message}`);
     }
   }
-
-  console.log('\n' + '='.repeat(70));
-  console.log('ALL MONGOOSE ODM & VALIDATION TESTS COMPLETED SUCCESSFULLY!');
-  console.log('='.repeat(70));
 }
 
-// Export models and schemas for modular use
-module.exports = {
-  Student,
-  studentSchema,
-  Post,
-  postSchema,
-  Comment,
-  commentSchema
-};
+module.exports = { Student, Post, Comment };
 
 if (require.main === module) {
-  runMongooseValidationTests();
+  validateSchemas();
 }

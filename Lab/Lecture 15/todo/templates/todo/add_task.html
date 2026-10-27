@@ -1,0 +1,26 @@
+{% extends 'todo/base.html' %}
+
+{% block title %}Add Task{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <h1>Add a New Task</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="title">Task title</label>
+        <input
+            type="text"
+            id="title"
+            name="title"
+            maxlength="200"
+            placeholder="e.g. Complete Lecture 15"
+            required
+        >
+
+        <button type="submit" class="button">Save Task</button>
+        <a href="{% url 'task_list' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

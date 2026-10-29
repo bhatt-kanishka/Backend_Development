@@ -33,3 +33,34 @@ def delete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.delete()
     return redirect('task_list')
+
+from django.http import JsonResponse
+from .utils import get_external_data
+
+
+def external_data_view(request, post_id):
+    result = get_external_data(post_id)
+
+    if result["error"]:
+        return JsonResponse(
+            {"error": result["error"]},
+            status=503,
+        )
+
+    return JsonResponse(result["data"])
+
+
+from django.http import JsonResponse
+from .utils import get_external_data
+
+
+def external_data_view(request, post_id):
+    result = get_external_data(post_id)
+
+    if result["error"]:
+        return JsonResponse(
+            {"error": result["error"]},
+            status=503,
+        )
+
+    return JsonResponse(result["data"])

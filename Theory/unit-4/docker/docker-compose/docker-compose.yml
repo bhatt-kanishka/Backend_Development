@@ -1,0 +1,148 @@
+
+
+services:
+  # ------------------------------
+  # PostgreSQL Database
+  # ------------------------------
+  postgres_db:
+    image: postgres:latest
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-StrongPass123}
+      POSTGRES_DB: ${POSTGRES_DB:-main_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    # Database is NOT exposed on the host.
+    # Docker services can access it using:
+    # postgres_db:5432
+
+    networks:
+      - backend
+
+  # ------------------------------
+  # pgAdmin Web Interface
+  # ------------------------------
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    depends_on:
+      - postgres_db
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-StrongPass123}
+    ports:
+      - 127.0.0.1:8094:80
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - backend
+
+  # ------------------------------
+  # MongoDB Database
+  # ------------------------------
+  mongo_db:
+    image: mongo:7.0
+    container_name: mongo_db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME:-admin}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD:-StrongPass123}
+    volumes:
+      - mongo_data:/data/db
+
+    # Database is NOT exposed on the host.
+    # Docker services can access it using:
+    # mongo_db:27017
+
+    networks:
+      - backend
+
+  # ------------------------------
+  # Mongo Express Web Interface
+  # ------------------------------
+  mongo_express:
+    image: mongo-express
+    container_name: mongo_express
+    restart: unless-stopped
+    depends_on:
+      - mongo_db
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME:-admin}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD:-StrongPass123}
+      ME_CONFIG_MONGODB_SERVER: mongo_db
+      ME_CONFIG_BASICAUTH_USERNAME: ${MONGO_EXPRESS_USERNAME:-admin}
+      ME_CONFIG_BASICAUTH_PASSWORD: ${MONGO_EXPRESS_PASSWORD:-StrongPass123}
+    ports:
+      - 127.0.0.1:8081:8081             #for secure we are using 127.0.0.1
+    networks:
+      - backend
+
+
+# ------------------------------
+# Docker Network
+# ------------------------------
+networks:
+  backend:
+    driver: bridge
+
+
+# ------------------------------
+# Persistent Docker Volumes
+# ------------------------------
+# Docker Desktop manages these volumes on macOS.
+volumes:
+  postgres_data:
+  pgadmin_data:
+  mongo_data:
+
+
+# ============================================================
+# Admin Interfaces (Local Mac)
+# ============================================================
+#
+# pgAdmin:
+# http://localhost:8094
+#
+# Mongo Express:
+# http://localhost:8081
+#
+#
+# ============================================================
+# Useful Docker Compose Commands
+# ============================================================
+#
+# Start all services:
+# docker compose up -d
+#
+# Check container status:
+# docker compose ps
+#
+# Check logs:
+# docker compose logs
+#
+# Follow logs:
+# docker compose logs -f
+#
+# pgAdmin logs:
+# docker compose logs -f pgadmin
+#
+# Mongo Express logs:
+# docker compose logs -f mongo_express
+#
+# Stop and remove containers:
+# docker compose down
+#
+# IMPORTANT:
+# docker compose down does NOT delete the named volumes.
+# Therefore PostgreSQL and MongoDB data remain stored.
+#
+# To stop containers AND permanently delete database volumes:
+# docker compose down -v
+#
+# WARNING:
+# The -v option permanently deletes PostgreSQL, MongoDB,
+# and pgAdmin persistent data.
+# ============================================================

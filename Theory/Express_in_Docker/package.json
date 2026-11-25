@@ -1,0 +1,16 @@
+{
+  "name": "express-project",
+  "version": "1.0.0",
+  "description": "Express application running inside Ubuntu Docker container",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

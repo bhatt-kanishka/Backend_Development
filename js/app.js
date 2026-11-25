@@ -179,7 +179,6 @@
               <div class="card-title">Student Information</div>
               <div class="card-subtitle">Backend Development Coursework</div>
             </div>
-            <div class="card-icon">🎓</div>
           </div>
           <div class="card-body">
             <div class="info-row"><span class="info-label">Name</span><span class="info-value">${STUDENT.name}</span></div>
@@ -216,7 +215,6 @@
 
         <a href="#labs" class="card listing-card" style="cursor:pointer;">
           <div class="listing-card-header">
-            <div class="listing-card-icon">🧪</div>
             <div>
               <div class="listing-card-title">Laboratory Experiments</div>
               <div class="listing-card-desc">${totalLabs} hands-on labs covering HTML5, Express, Django, FastAPI, MongoDB and more.</div>
@@ -227,7 +225,6 @@
 
         <a href="#theory" class="card listing-card" style="cursor:pointer;">
           <div class="listing-card-header">
-            <div class="listing-card-icon">📖</div>
             <div>
               <div class="listing-card-title">Theory & Tasks</div>
               <div class="listing-card-desc">${totalTheory} topics from REST fundamentals to data modeling and Docker.</div>
@@ -238,7 +235,6 @@
 
         <a href="#course-plan" class="card listing-card" style="cursor:pointer;">
           <div class="listing-card-header">
-            <div class="listing-card-icon">📅</div>
             <div>
               <div class="listing-card-title">Course Plan & Syllabus</div>
               <div class="listing-card-desc">5 units, ${SYLLABUS.courseOutcomes.length} course outcomes, and ${totalTech} technologies.</div>
@@ -260,7 +256,6 @@
       html += `
         <a href="#labs/${lab.id}" class="listing-card">
           <div class="listing-card-header">
-            <div class="listing-card-icon">${lab.icon}</div>
             <div>
               <div class="listing-card-title">${lab.title}</div>
             </div>
@@ -282,7 +277,6 @@
       html += `
         <a href="#theory/${topic.id}" class="listing-card">
           <div class="listing-card-header">
-            <div class="listing-card-icon">${topic.icon}</div>
             <div>
               <div class="listing-card-title">${topic.title}</div>
             </div>
@@ -316,14 +310,14 @@
 
     // Header
     html += `<div class="detail-header">
-      <h1>${item.icon} ${item.title}</h1>
+      <h1>${item.title}</h1>
       <p>${item.description}</p>
     </div>`;
 
     // File structure tree (if available)
     if (item.tree) {
       html += `<div class="unit-card" style="margin-bottom:20px;">
-        <h3 style="font-size:0.95rem;margin-bottom:10px;">📂 File Structure Tree</h3>
+        <h3 style="font-size:0.95rem;margin-bottom:10px;">File Structure Tree</h3>
         <pre style="background:var(--code-bg);color:var(--code-text);padding:14px;border-radius:var(--radius-sm);font-family:monospace;font-size:0.82rem;overflow-x:auto;"><code>${item.tree}</code></pre>
       </div>`;
     }
@@ -332,7 +326,7 @@
     if (item.dependencies && item.dependencies.length > 0) {
       const deps = item.dependencies.map(d => `<span class="dep-badge">${d}</span>`).join('');
       html += `<div class="deps-box">
-        <h3>📦 Dependencies & Requirements</h3>
+        <h3>Dependencies & Requirements</h3>
         <div class="deps-list">${deps}</div>
         ${item.runCommand ? `<div class="run-cmd">$ ${item.runCommand}</div>` : ''}
         ${item.port ? `<div style="margin-top:8px;font-size:0.82rem;color:var(--text-muted);">Port / Access: ${item.port}</div>` : ''}
@@ -346,7 +340,7 @@
     if (item.files && item.files.length > 0) {
       html += '<div class="file-tabs-container"><div class="file-tabs-header" id="fileTabs">';
       item.files.forEach((f, i) => {
-        html += `<button class="file-tab${i === 0 ? ' active' : ''}" data-idx="${i}">📄 ${f.name}</button>`;
+        html += `<button class="file-tab${i === 0 ? ' active' : ''}" data-idx="${i}">${f.name}</button>`;
       });
       html += '</div><div id="fileContents">';
       item.files.forEach((f, i) => {
@@ -460,7 +454,7 @@
         content.innerHTML = `
           <div class="detail-page">
             <div class="detail-header">
-              <h1>📄 ${cleanFile}</h1>
+              <h1>${cleanFile}</h1>
               <p>Path: <code>${fullPath}</code></p>
             </div>
             <div class="markdown-body" id="directMarkdown">${marked.parse(fileContent)}</div>
@@ -479,7 +473,7 @@
         content.innerHTML = `
           <div class="detail-page">
             <div class="detail-header">
-              <h1>📄 ${cleanFile}</h1>
+              <h1>${cleanFile}</h1>
               <p>Path: <code>${fullPath}</code></p>
             </div>
             <div class="file-tabs-container">
@@ -496,7 +490,7 @@
       content.innerHTML = `
         <div class="detail-page">
           <div class="detail-header">
-            <h1>📂 ${cleanDir}</h1>
+            <h1>${cleanDir}</h1>
             <p>File: <code>${cleanFile}</code></p>
           </div>
           <div class="unit-card">
@@ -509,7 +503,7 @@
   // --- Render: Course Plan ---
   function renderCoursePlan() {
     setBreadcrumbs([{ label: 'Dashboard', href: '#home' }, { label: 'Course Plan' }]);
-    let html = '<h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">📅 Course Plan — Backend Development</h2>';
+    let html = '<h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Course Plan — Backend Development</h2>';
 
     COURSE_PLAN.units.forEach((unit) => {
       const topics = unit.topics.map(t => `<li>${t}</li>`).join('');
@@ -534,7 +528,7 @@
     });
 
     const html = `
-      <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">📄 Syllabus — ${SYLLABUS.subject}</h2>
+      <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Syllabus — ${SYLLABUS.subject}</h2>
       <div class="unit-card">
         <h3>Course Outcomes</h3>
         <ul>${outcomes}</ul>
@@ -559,13 +553,13 @@
 
     let html = `
       <div class="index-header">
-        <h2 class="index-header-title">📋 Coursework Index & Directory</h2>
+        <h2 class="index-header-title">Coursework Index & Directory</h2>
         <p class="index-header-subtitle">Comprehensive tabular directory of all practical laboratory experiments, theory architecture modules, and code files with their actual functionality.</p>
       </div>
 
       <div class="index-controls">
         <div class="index-search-box">
-          <span class="index-search-icon">🔍</span>
+          <svg class="search-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           <input type="text" id="indexFilter" class="index-search-input" placeholder="Search by topic, working, technology, or path…" />
         </div>
 
@@ -574,13 +568,13 @@
             All Modules <span class="filter-count">${totalModules}</span>
           </button>
           <button class="filter-tab-btn" data-filter="lab">
-            🧪 Labs <span class="filter-count">${LABS.length}</span>
+            Labs <span class="filter-count">${LABS.length}</span>
           </button>
           <button class="filter-tab-btn" data-filter="theory">
-            📖 Theory <span class="filter-count">${THEORY.length}</span>
+            Theory <span class="filter-count">${THEORY.length}</span>
           </button>
           <button class="filter-tab-btn" data-filter="files">
-            📄 Code Files <span class="filter-count">${totalFiles}</span>
+            Code Files <span class="filter-count">${totalFiles}</span>
           </button>
         </div>
       </div>
@@ -612,7 +606,6 @@
           <td class="col-sno">${sno++}</td>
           <td class="topic-cell">
             <a href="#labs/${lab.id}" class="topic-title-link">
-              <span style="font-size:1.2rem;">${lab.icon}</span>
               <span>${lab.title}</span>
             </a>
             <div class="topic-working-desc">${lab.working || lab.description}</div>
@@ -642,7 +635,6 @@
           <td class="col-sno">${sno++}</td>
           <td class="topic-cell">
             <a href="#theory/${topic.id}" class="topic-title-link">
-              <span style="font-size:1.2rem;">${topic.icon}</span>
               <span>${topic.title}</span>
             </a>
             <div class="topic-working-desc">${topic.working || topic.description}</div>
@@ -690,13 +682,13 @@
 
     LABS.forEach(l => {
       (l.files || []).forEach(f => {
-        allFilesList.push({ ...f, parentTitle: l.title, parentHref: `#labs/${l.id}`, parentIcon: l.icon });
+        allFilesList.push({ ...f, parentTitle: l.title, parentHref: `#labs/${l.id}`, parentIcon: '' });
       });
     });
 
     THEORY.forEach(t => {
       (t.files || []).forEach(f => {
-        allFilesList.push({ ...f, parentTitle: t.title, parentHref: `#theory/${t.id}`, parentIcon: t.icon });
+        allFilesList.push({ ...f, parentTitle: t.title, parentHref: `#theory/${t.id}`, parentIcon: '' });
       });
     });
 
@@ -709,7 +701,6 @@
           <td class="col-sno">${fileSno++}</td>
           <td>
             <a href="${f.parentHref}" class="topic-title-link" style="font-family:monospace;font-size:0.86rem;">
-              <span>📄</span>
               <strong>${f.name}</strong>
               <span class="badge-category badge-file" style="font-size:0.68rem;padding:2px 7px;">${langUpper}</span>
             </a>
@@ -718,7 +709,7 @@
             <div style="font-size:0.82rem;color:var(--text-dark);">${f.purpose || 'Component implementation'}</div>
           </td>
           <td>
-            <span style="font-size:0.8rem;color:var(--text-muted);">${f.parentIcon} ${f.parentTitle.split(':')[0]}</span>
+            <span style="font-size:0.8rem;color:var(--text-muted);">${f.parentTitle.split(':')[0]}</span>
           </td>
           <td>
             <span class="path-code">${f.path}</span>
@@ -850,21 +841,21 @@
       })),
       ...LABS.flatMap(l => l.files.map(f => ({
         title: f.name,
-        icon: '📄',
+        icon: '',
         path: f.path,
         href: `#labs/${l.id}`,
         keywords: [f.name, f.path, l.title, fileCache[f.path] || ''].join(' ').toLowerCase()
       }))),
       ...THEORY.flatMap(t => t.files.map(f => ({
         title: f.name,
-        icon: '📄',
+        icon: '',
         path: f.path,
         href: `#theory/${t.id}`,
         keywords: [f.name, f.path, t.title, fileCache[f.path] || ''].join(' ').toLowerCase()
       }))),
-      { title: 'Course Plan', icon: '📅', path: 'Course Plan', href: '#course-plan', keywords: 'course plan curriculum units syllabus outcomes' },
-      { title: 'Syllabus', icon: '📄', path: 'Syllabus', href: '#syllabus', keywords: 'syllabus outcomes technologies course outcomes' },
-      { title: 'Student Profile', icon: '🎓', path: 'Kanishka Bhatt', href: '#home', keywords: 'kanishka bhatt 590017366 upes backend development' }
+      { title: 'Course Plan', icon: '', path: 'Course Plan', href: '#course-plan', keywords: 'course plan curriculum units syllabus outcomes' },
+      { title: 'Syllabus', icon: '', path: 'Syllabus', href: '#syllabus', keywords: 'syllabus outcomes technologies course outcomes' },
+      { title: 'Student Profile', icon: '', path: 'Kanishka Bhatt', href: '#home', keywords: 'kanishka bhatt 590017366 upes backend development' }
     ];
 
     input.addEventListener('input', function () {
@@ -878,7 +869,7 @@
       } else {
         results.innerHTML = matches.map(m => `
           <a href="${m.href}" class="search-result-item">
-            <span class="search-result-icon">${m.icon}</span>
+            ${m.icon ? `<span class="search-result-icon">${m.icon}</span>` : ''}
             <div>
               <div class="search-result-title">${m.title}</div>
               ${m.path ? `<div class="search-result-path">${m.path}</div>` : ''}

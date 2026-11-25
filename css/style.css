@@ -1027,6 +1027,231 @@ a:hover { color: var(--accent-pink); }
   font-size: 0.9rem;
 }
 
+/* --- Section Title Bar --- */
+.section-title-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+/* --- GitHub Action Buttons --- */
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.github-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: 50px;
+  background: var(--text-dark);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all var(--transition);
+  box-shadow: 0 2px 8px rgba(63, 43, 59, 0.15);
+  white-space: nowrap;
+}
+
+.github-btn:hover {
+  background: #231621;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(63, 43, 59, 0.25);
+}
+
+.github-btn-outline {
+  background: transparent;
+  color: var(--text-dark);
+  border: 1.5px solid var(--card-plum);
+  box-shadow: none;
+}
+
+.github-btn-outline:hover {
+  background: var(--card-plum);
+  color: #FFFFFF;
+  border-color: var(--card-plum);
+}
+
+.gh-path-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.18);
+  font-family: monospace;
+  font-size: 0.74rem;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.github-btn-outline .gh-path-badge {
+  background: rgba(143, 109, 138, 0.15);
+  color: var(--text-dark);
+}
+
+/* --- Listing Card Actions --- */
+.listing-card-title-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.listing-card-title-link:hover .listing-card-title {
+  color: var(--card-plum);
+}
+
+.listing-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(221, 205, 203, 0.5);
+}
+
+.card-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.card-action-primary {
+  background: var(--card-plum);
+  color: #FFFFFF;
+}
+
+.card-action-primary:hover {
+  background: var(--accent-pink);
+  color: #FFFFFF;
+}
+
+.card-action-gh {
+  background: rgba(63, 43, 59, 0.08);
+  color: var(--text-dark);
+  border: 1px solid rgba(63, 43, 59, 0.15);
+}
+
+.card-action-gh:hover {
+  background: var(--text-dark);
+  color: #FFFFFF;
+  border-color: var(--text-dark);
+}
+
+/* --- Code Actions Bar in Code Blocks --- */
+.code-actions-bar {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 5;
+}
+
+.code-actions-bar .copy-btn {
+  position: static;
+}
+
+.gh-file-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.72rem;
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition);
+  border: none;
+  cursor: pointer;
+}
+
+.gh-file-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+/* --- Table GitHub Button --- */
+.gh-table-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  background: rgba(63, 43, 59, 0.08);
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 0.76rem;
+  font-weight: 600;
+  border: 1px solid rgba(63, 43, 59, 0.15);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.gh-table-btn:hover {
+  background: var(--text-dark);
+  color: #FFFFFF;
+  border-color: var(--text-dark);
+  transform: translateY(-1px);
+}
+
+/* --- Repo Footer Card in Detail View --- */
+.repo-footer-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: var(--surface-cream);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-top: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(143, 109, 138, 0.2);
+}
+
+.repo-footer-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.repo-footer-path {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.repo-footer-path code {
+  background: rgba(46, 32, 48, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.84em;
+  color: var(--card-plum);
+}
+
 /* --- Loading State --- */
 .loading {
   display: flex;

@@ -8,6 +8,23 @@
   // --- Configuration ---
   const fileCache = (typeof EMBEDDED_CACHE !== 'undefined') ? Object.assign({}, EMBEDDED_CACHE) : {};
 
+  // --- GitHub Helpers ---
+  const GITHUB_SVG = '<svg class="gh-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>';
+
+  const REPO_BASE = (typeof GITHUB_BASE !== 'undefined') ? GITHUB_BASE : 'https://github.com/bhatt-kanishka/Backend_Development';
+
+  function getGitHubDirUrl(path) {
+    if (!path) return REPO_BASE;
+    const clean = path.replace(/^\/+/, '');
+    return `${REPO_BASE}/tree/main/${encodeURI(clean)}`;
+  }
+
+  function getGitHubFileUrl(path) {
+    if (!path) return REPO_BASE;
+    const clean = path.replace(/^\/+/, '');
+    return `${REPO_BASE}/blob/main/${encodeURI(clean)}`;
+  }
+
   // --- Marked.js Configuration ---
   if (typeof marked !== 'undefined') {
     marked.setOptions({
@@ -186,6 +203,15 @@
             <div class="info-row"><span class="info-label">Institute</span><span class="info-value">${STUDENT.institute}</span></div>
             <div class="info-row"><span class="info-label">Semester</span><span class="info-value">${STUDENT.semester}</span></div>
             <div class="info-row"><span class="info-label">Subject</span><span class="info-value">${STUDENT.subject}</span></div>
+            <div class="info-row">
+              <span class="info-label">Repository</span>
+              <span class="info-value">
+                <a href="${REPO_BASE}" target="_blank" rel="noopener noreferrer" style="color:var(--card-plum);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:6px;">
+                  ${GITHUB_SVG}
+                  <span>bhatt-kanishka/Backend_Development</span>
+                </a>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -242,6 +268,19 @@
           </div>
           <div class="card-link">View Course Plan →</div>
         </a>
+
+        <a href="${REPO_BASE}" target="_blank" rel="noopener noreferrer" class="card listing-card" style="cursor:pointer;">
+          <div class="listing-card-header">
+            <div>
+              <div class="listing-card-title" style="display:flex;align-items:center;gap:6px;">
+                ${GITHUB_SVG}
+                <span>Source Repository</span>
+              </div>
+              <div class="listing-card-desc">Direct access to the full coursework repository, commit history, and branches on GitHub.</div>
+            </div>
+          </div>
+          <div class="card-link">Open GitHub Repo ↗</div>
+        </a>
       </div>`;
 
     document.getElementById('content').innerHTML = html;
@@ -250,19 +289,39 @@
   // --- Render: Labs Listing ---
   function renderLabsList() {
     setBreadcrumbs([{ label: 'Dashboard', href: '#home' }, { label: 'Labs' }]);
-    let html = '<h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Laboratory Experiments</h2><div class="listing-grid">';
+    let html = `
+      <div class="section-title-bar">
+        <div>
+          <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:6px;">Laboratory Experiments</h2>
+          <p style="font-size:0.88rem;color:var(--text-muted);">All hands-on laboratory practicals with full documentation, dependencies, and direct GitHub links.</p>
+        </div>
+        <a href="${getGitHubDirUrl('Lab')}" target="_blank" rel="noopener noreferrer" class="github-btn">
+          ${GITHUB_SVG}
+          <span>View Lab/ on GitHub</span>
+        </a>
+      </div>
+      <div class="listing-grid">`;
     LABS.forEach(lab => {
       const tags = lab.concepts.slice(0, 4).map(c => `<span class="tag">${c}</span>`).join('');
       html += `
-        <a href="#labs/${lab.id}" class="listing-card">
+        <div class="listing-card">
           <div class="listing-card-header">
             <div>
-              <div class="listing-card-title">${lab.title}</div>
+              <a href="#labs/${lab.id}" class="listing-card-title-link">
+                <div class="listing-card-title">${lab.title}</div>
+              </a>
             </div>
           </div>
           <div class="listing-card-desc">${lab.description}</div>
           <div class="listing-card-tags">${tags}</div>
-        </a>`;
+          <div class="listing-card-actions">
+            <a href="#labs/${lab.id}" class="card-action-btn card-action-primary">View Experiment →</a>
+            <a href="${getGitHubDirUrl(lab.path)}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-action-gh" title="Open ${lab.path} on GitHub">
+              ${GITHUB_SVG}
+              <span>GitHub Repo</span>
+            </a>
+          </div>
+        </div>`;
     });
     html += '</div>';
     document.getElementById('content').innerHTML = html;
@@ -271,19 +330,39 @@
   // --- Render: Theory Listing ---
   function renderTheoryList() {
     setBreadcrumbs([{ label: 'Dashboard', href: '#home' }, { label: 'Theory' }]);
-    let html = '<h2 style="font-size:1.3rem;font-weight:700;margin-bottom:20px;">Theory & Practical Tasks</h2><div class="listing-grid">';
+    let html = `
+      <div class="section-title-bar">
+        <div>
+          <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:6px;">Theory & Practical Tasks</h2>
+          <p style="font-size:0.88rem;color:var(--text-muted);">Architectural theory topics, REST fundamentals, database modeling, and containerization modules.</p>
+        </div>
+        <a href="${getGitHubDirUrl('Theory')}" target="_blank" rel="noopener noreferrer" class="github-btn">
+          ${GITHUB_SVG}
+          <span>View Theory/ on GitHub</span>
+        </a>
+      </div>
+      <div class="listing-grid">`;
     THEORY.forEach(topic => {
       const tags = topic.concepts.slice(0, 4).map(c => `<span class="tag">${c}</span>`).join('');
       html += `
-        <a href="#theory/${topic.id}" class="listing-card">
+        <div class="listing-card">
           <div class="listing-card-header">
             <div>
-              <div class="listing-card-title">${topic.title}</div>
+              <a href="#theory/${topic.id}" class="listing-card-title-link">
+                <div class="listing-card-title">${topic.title}</div>
+              </a>
             </div>
           </div>
           <div class="listing-card-desc">${topic.description}</div>
           <div class="listing-card-tags">${tags}</div>
-        </a>`;
+          <div class="listing-card-actions">
+            <a href="#theory/${topic.id}" class="card-action-btn card-action-primary">View Topic →</a>
+            <a href="${getGitHubDirUrl(topic.path)}" target="_blank" rel="noopener noreferrer" class="card-action-btn card-action-gh" title="Open ${topic.path} on GitHub">
+              ${GITHUB_SVG}
+              <span>GitHub Repo</span>
+            </a>
+          </div>
+        </div>`;
     });
     html += '</div>';
     document.getElementById('content').innerHTML = html;
@@ -312,6 +391,18 @@
     html += `<div class="detail-header">
       <h1>${item.title}</h1>
       <p>${item.description}</p>
+      <div class="detail-actions">
+        <a href="${getGitHubDirUrl(item.path)}" target="_blank" rel="noopener noreferrer" class="github-btn" title="Open repository directory on GitHub">
+          ${GITHUB_SVG}
+          <span>View ${type === 'labs' ? 'Experiment' : 'Topic'} on GitHub</span>
+          <span class="gh-path-badge">${item.path}</span>
+        </a>
+        ${item.readme ? `
+        <a href="${getGitHubFileUrl(item.readme)}" target="_blank" rel="noopener noreferrer" class="github-btn github-btn-outline" title="Open README file on GitHub">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <span>View README.md on GitHub</span>
+        </a>` : ''}
+      </div>
     </div>`;
 
     // File structure tree (if available)
@@ -348,6 +439,19 @@
       });
       html += '</div></div>';
     }
+
+    // Repository Footer Card
+    html += `
+      <div class="repo-footer-card">
+        <div class="repo-footer-info">
+          <div class="repo-footer-title">GitHub Repository Source</div>
+          <div class="repo-footer-path">Folder: <code>${item.path}</code> in <strong>bhatt-kanishka/Backend_Development</strong></div>
+        </div>
+        <a href="${getGitHubDirUrl(item.path)}" target="_blank" rel="noopener noreferrer" class="github-btn">
+          ${GITHUB_SVG}
+          <span>Open Folder on GitHub ↗</span>
+        </a>
+      </div>`;
 
     // Prev / Next navigation
     const idx = list.indexOf(item);
@@ -409,7 +513,17 @@
           } catch (e) {
             highlighted = code.replace(/</g, '&lt;').replace(/>/g, '&gt;');
           }
-          container.innerHTML = `<div class="code-block-wrapper"><button class="copy-btn" data-code="${encodeURIComponent(code)}">Copy</button><pre><code class="hljs">${highlighted}</code></pre></div>`;
+          container.innerHTML = `
+            <div class="code-block-wrapper">
+              <div class="code-actions-bar">
+                <a href="${getGitHubFileUrl(f.path)}" target="_blank" rel="noopener noreferrer" class="gh-file-btn" title="View file in GitHub repository">
+                  ${GITHUB_SVG}
+                  <span>GitHub</span>
+                </a>
+                <button class="copy-btn" data-code="${encodeURIComponent(code)}">Copy</button>
+              </div>
+              <pre><code class="hljs">${highlighted}</code></pre>
+            </div>`;
           const copyBtn = container.querySelector('.copy-btn');
           if (copyBtn) copyBtn.addEventListener('click', handleCopy);
         } else {
@@ -456,6 +570,13 @@
             <div class="detail-header">
               <h1>${cleanFile}</h1>
               <p>Path: <code>${fullPath}</code></p>
+              <div class="detail-actions">
+                <a href="${getGitHubFileUrl(fullPath)}" target="_blank" rel="noopener noreferrer" class="github-btn">
+                  ${GITHUB_SVG}
+                  <span>View on GitHub</span>
+                  <span class="gh-path-badge">${fullPath}</span>
+                </a>
+              </div>
             </div>
             <div class="markdown-body" id="directMarkdown">${marked.parse(fileContent)}</div>
           </div>`;
@@ -475,10 +596,23 @@
             <div class="detail-header">
               <h1>${cleanFile}</h1>
               <p>Path: <code>${fullPath}</code></p>
+              <div class="detail-actions">
+                <a href="${getGitHubFileUrl(fullPath)}" target="_blank" rel="noopener noreferrer" class="github-btn">
+                  ${GITHUB_SVG}
+                  <span>View on GitHub</span>
+                  <span class="gh-path-badge">${fullPath}</span>
+                </a>
+              </div>
             </div>
             <div class="file-tabs-container">
               <div class="code-block-wrapper">
-                <button class="copy-btn" data-code="${encodeURIComponent(fileContent)}">Copy</button>
+                <div class="code-actions-bar">
+                  <a href="${getGitHubFileUrl(fullPath)}" target="_blank" rel="noopener noreferrer" class="gh-file-btn" title="View file in GitHub repository">
+                    ${GITHUB_SVG}
+                    <span>GitHub</span>
+                  </a>
+                  <button class="copy-btn" data-code="${encodeURIComponent(fileContent)}">Copy</button>
+                </div>
                 <pre><code class="hljs">${highlighted}</code></pre>
               </div>
             </div>
@@ -619,8 +753,14 @@
           <td>
             <span class="path-code">${lab.path}</span>
           </td>
-          <td style="text-align:center;">
-            <a href="#labs/${lab.id}" class="view-btn">View Docs →</a>
+          <td style="text-align:center;white-space:nowrap;">
+            <div style="display:inline-flex;gap:6px;align-items:center;">
+              <a href="#labs/${lab.id}" class="view-btn">View Docs →</a>
+              <a href="${getGitHubDirUrl(lab.path)}" target="_blank" rel="noopener noreferrer" class="gh-table-btn" title="Open repository folder on GitHub">
+                ${GITHUB_SVG}
+                <span>GitHub</span>
+              </a>
+            </div>
           </td>
         </tr>`;
     });
@@ -648,8 +788,14 @@
           <td>
             <span class="path-code">${topic.path}</span>
           </td>
-          <td style="text-align:center;">
-            <a href="#theory/${topic.id}" class="view-btn">View Docs →</a>
+          <td style="text-align:center;white-space:nowrap;">
+            <div style="display:inline-flex;gap:6px;align-items:center;">
+              <a href="#theory/${topic.id}" class="view-btn">View Docs →</a>
+              <a href="${getGitHubDirUrl(topic.path)}" target="_blank" rel="noopener noreferrer" class="gh-table-btn" title="Open repository folder on GitHub">
+                ${GITHUB_SVG}
+                <span>GitHub</span>
+              </a>
+            </div>
           </td>
         </tr>`;
     });
@@ -714,8 +860,14 @@
           <td>
             <span class="path-code">${f.path}</span>
           </td>
-          <td style="text-align:center;">
-            <a href="${f.parentHref}" class="view-btn">Inspect Code →</a>
+          <td style="text-align:center;white-space:nowrap;">
+            <div style="display:inline-flex;gap:6px;align-items:center;">
+              <a href="${f.parentHref}" class="view-btn">Inspect Code →</a>
+              <a href="${getGitHubFileUrl(f.path)}" target="_blank" rel="noopener noreferrer" class="gh-table-btn" title="View file in GitHub repository">
+                ${GITHUB_SVG}
+                <span>GitHub</span>
+              </a>
+            </div>
           </td>
         </tr>`;
     });

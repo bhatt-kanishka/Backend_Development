@@ -12,7 +12,7 @@ This module references the practical laboratory task for Unit 1, demonstrating m
 
 The complete runnable codebase, route handlers, and documentation for Task 2 are located in:
 
-👉 **[`Theory/task-2/`](file:///d:/Desktop/Backend%20Development/Theory/task-2/)**
+👉 **[`Theory/Task-2/`](file:///d:/Desktop/Backend%20Development/Theory/Task-2/)**
 
 ### Key Features Implemented:
 * **`GET /students`** — Fetches complete collection of enrolled student records in JSON format.
@@ -24,7 +24,7 @@ The complete runnable codebase, route handlers, and documentation for Task 2 are
 ## How to Run
 
 ```powershell
-cd "Theory/task-2"
+cd "Theory/Task-2"
 python app.py
 ```
 Server listens on: `http://127.0.0.1:5000`

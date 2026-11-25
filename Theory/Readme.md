@@ -10,23 +10,24 @@ This directory encompasses all practical tasks, lecture assignments, and archite
 ```text
 Theory/
 ├── Readme.md                    # Master Theory curriculum documentation (this file)
-├── demo.js                      # Python Flask reference script
 │
 ├── Unit-1/                      # Unit 1: Foundations of Backend Web Development
-│   └── Readme.md
+│   ├── Readme.md
+│   └── Task-2/                  # Supporting Flask task notes
 │
-├── task-2/                      # Task 2: Flask REST API with JSON responses
+├── Task-2/                      # Task 2: Flask REST API with JSON responses
 │   ├── app.py
+│   ├── demo.py                  # Reference Flask script
 │   └── Readme.md
 │
-├── Task_3/                      # Task 3: FastAPI REST API with Uvicorn & Swagger UI
+├── Task-3/                      # Task 3: FastAPI REST API with Uvicorn & Swagger UI
 │   ├── main.py
 │   └── Readme.md
 │
-├── Task_4/                      # Task 4: Nodemon Developer Workflow & Process Watching
+├── Task-4/                      # Task 4: Nodemon Developer Workflow & Process Watching
 │   └── Readme.md
 │
-├── ssr_demmo_Task_5/            # Task 5: Server-Side Rendering (SSR) with FastAPI & Jinja2
+├── Task-5/                      # Task 5: Server-Side Rendering (SSR) with FastAPI & Jinja2
 │   ├── main.py
 │   ├── Templates/
 │   └── Readme.md
@@ -39,11 +40,15 @@ Theory/
 │       ├── script.js
 │       └── Readme.md
 │
-├── express-demo/                # Express.js HTTP Server & Route Basics
+├── Express-Demo/                # Express.js HTTP Server & Route Basics
 │   ├── server.js
 │   └── Readme.md
 │
-├── Lecture_15/                  # Lecture 15: Data Modeling (Designing Models for Applications)
+├── Express-in-Docker/           # Dockerized Express microservice
+│   ├── app.js
+│   └── README.md
+│
+├── Lecture-15/                  # Lecture 15: Data Modeling (Designing Models for Applications)
 │   ├── Readme.md
 │   └── ORM/                     # SQLAlchemy ORM, Mongoose ODM, Pydantic Validation & PBL
 │       ├── Readme.md
@@ -57,8 +62,11 @@ Theory/
 │       ├── save_to_mongodb.js
 │       └── run_all.py
 │
-└── Lecture_16/                  # Lecture 16: CRUD Operations in Databases
-    └── Readme.md
+├── Lecture-16/                  # Lecture 16: CRUD Operations in Databases
+│   └── Readme.md
+│
+└── Unit-4/                      # Unit 4: Docker & Multi-Database Environments
+    └── docker/docker-compose/
 ```
 
 ---
@@ -68,22 +76,22 @@ Theory/
 ### 1. [Unit 1: Foundations of Backend Development](file:///d:/Desktop/Backend%20Development/Theory/Unit-1/Readme.md)
 * **Core Concepts**: Client-server architecture, HTTP request-response lifecycle, status code classes (2xx, 4xx, 5xx), REST architectural constraints.
 
-### 2. [Task 2: Flask REST API](file:///d:/Desktop/Backend%20Development/Theory/task-2/Readme.md)
+### 2. [Task 2: Flask REST API](file:///d:/Desktop/Backend%20Development/Theory/Task-2/Readme.md)
 * **Technology**: Python 3, Flask.
 * **Core Concepts**: Microframework architecture, routing, JSON serialization with `jsonify()`, path variable casting (`<int:id>`), HTTP status codes (200 OK, 404 Not Found).
 * **Run**: `python app.py` (Port 5000).
 
-### 3. [Task 3: FastAPI REST API](file:///d:/Desktop/Backend%20Development/Theory/Task_3/Readme.md)
+### 3. [Task 3: FastAPI REST API](file:///d:/Desktop/Backend%20Development/Theory/Task-3/Readme.md)
 * **Technology**: Python 3, FastAPI, Uvicorn ASGI server.
 * **Core Concepts**: Modern asynchronous Python, type hints, automatic OpenAPI/Swagger UI generation (`/docs`), hot reloading.
 * **Run**: `uvicorn main:app --reload` or `python main.py` (Port 8000).
 
-### 4. [Task 4: Nodemon Process Watching](file:///d:/Desktop/Backend%20Development/Theory/Task_4/Readme.md)
+### 4. [Task 4: Nodemon Process Watching](file:///d:/Desktop/Backend%20Development/Theory/Task-4/Readme.md)
 * **Technology**: Node.js, Nodemon, Chokidar.
 * **Core Concepts**: Developer experience (DX), file system watchers, automatic process termination and restart upon code changes.
 * **Usage**: `npx nodemon <file>.js`.
 
-### 5. [Task 5: Server-Side Rendering (SSR)](file:///d:/Desktop/Backend%20Development/Theory/ssr_demmo_Task_5/Readme.md)
+### 5. [Task 5: Server-Side Rendering (SSR)](file:///d:/Desktop/Backend%20Development/Theory/Task-5/Readme.md)
 * **Technology**: Python 3, FastAPI, Jinja2 Templates.
 * **Core Concepts**: SSR vs. Client-Side Rendering (CSR), template inheritance, conditional rendering (`{% if %}`), and data loops (`{% for %}`).
 * **Run**: `python main.py` (Port 8000).
@@ -93,12 +101,12 @@ Theory/
 * **Core Concepts**: Browser data persistence, comparing `localStorage` (long-term) with `sessionStorage` (tab lifecycle), JSON serialization, DOM manipulation in a To-Do list app.
 * **Run**: Open `index.html` in browser.
 
-### 7. [Express Demo](file:///d:/Desktop/Backend%20Development/Theory/express-demo/Readme.md)
+### 7. [Express Demo](file:///d:/Desktop/Backend%20Development/Theory/Express-Demo/Readme.md)
 * **Technology**: Node.js, Express.js.
 * **Core Concepts**: Server bootstrapping, HTTP routing, endpoint design, handler callbacks.
 * **Run**: `node server.js` (Port 3000).
 
-### 8. [Lecture 15: Data Modeling (ORM & ODM)](file:///d:/Desktop/Backend%20Development/Theory/Lecture_15/ORM/Readme.md)
+### 8. [Lecture 15: Data Modeling (ORM & ODM)](file:///d:/Desktop/Backend%20Development/Theory/Lecture-15/ORM/Readme.md)
 * **Technology**: Python (SQLAlchemy, FastAPI, Pydantic), Node.js (Mongoose), SQLite, PostgreSQL.
 * **Core Concepts**:
   - Three levels of modeling: Conceptual (ER), Logical (Types & Constraints), Physical (SQL DDL & Indexes).
@@ -106,10 +114,20 @@ Theory/
   - E-Commerce System data modeling across Customer, Product, Cart, and Order entities.
   - Request validation using Pydantic (`EmailStr`, regex patterns, 422 error handling).
   - Object Document Modeling (ODM) with Mongoose schemas and built-in validators.
-* **Run**: `python run_all.py` inside [`Theory/Lecture_15/ORM/`](file:///d:/Desktop/Backend%20Development/Theory/Lecture_15/ORM/).
+* **Run**: `python run_all.py` inside [`Theory/Lecture-15/ORM/`](file:///d:/Desktop/Backend%20Development/Theory/Lecture-15/ORM/).
 
-### 9. [Lecture 16: Database CRUD Operations](file:///d:/Desktop/Backend%20Development/Theory/Lecture_16/Readme.md)
+### 9. [Lecture 16: Database CRUD Operations](file:///d:/Desktop/Backend%20Development/Theory/Lecture-16/Readme.md)
 * **Core Concepts**: ACID transaction management, connection pooling, pagination, and SQL vs NoSQL CRUD patterns.
+
+### 10. [Express in Docker](file:///d:/Desktop/Backend%20Development/Theory/Express-in-Docker/README.md)
+* **Technology**: Node.js, Express.js, Docker.
+* **Core Concepts**: Container networking, binding to `0.0.0.0`, host-to-container port mapping, and container-friendly process management.
+* **Run**: `npm install && npm start` or `docker run -p 3000:3000 express-docker-demo`.
+
+### 11. [Unit 4: Docker & Multi-Database Environments](file:///d:/Desktop/Backend%20Development/Theory/Unit-4/README.md)
+* **Technology**: Docker Compose, PostgreSQL, MongoDB, pgAdmin, Mongo Express.
+* **Core Concepts**: Multi-service orchestration, internal bridge networking, persistent named volumes, and local port binding.
+* **Run**: `docker compose up -d` inside `Theory/Unit-4/docker/docker-compose`.
 
 ---
 

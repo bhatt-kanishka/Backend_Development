@@ -36,6 +36,6 @@ Unit 1 lays the architectural and conceptual foundation for backend web developm
 
 Practical demonstrations supporting Unit 1 concepts are implemented across:
 
-* [`Theory/task-2/`](file:///d:/Desktop/Backend%20Development/Theory/task-2/) — Microframework REST API implementation using Python Flask with JSON serialization and dynamic route variables.
-* [`Theory/Task_3/`](file:///d:/Desktop/Backend%20Development/Theory/Task_3/) — High-performance asynchronous API service built with FastAPI and Uvicorn with auto-generated OpenAPI documentation.
-* [`Theory/express-demo/`](file:///d:/Desktop/Backend%20Development/Theory/express-demo/) — Node.js & Express.js server bootstrapping and route registration.
+* [`Theory/Task-2/`](file:///d:/Desktop/Backend%20Development/Theory/Task-2/) — Microframework REST API implementation using Python Flask with JSON serialization and dynamic route variables.
+* [`Theory/Task-3/`](file:///d:/Desktop/Backend%20Development/Theory/Task-3/) — High-performance asynchronous API service built with FastAPI and Uvicorn with auto-generated OpenAPI documentation.
+* [`Theory/Express-Demo/`](file:///d:/Desktop/Backend%20Development/Theory/Express-Demo/) — Node.js & Express.js server bootstrapping and route registration.

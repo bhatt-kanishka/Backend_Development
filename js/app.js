@@ -548,57 +548,248 @@
     document.getElementById('content').innerHTML = html;
   }
 
-  // --- Render: Index ---
+  // --- Render: Index (Tabular Directory) ---
   function renderIndex() {
-    setBreadcrumbs([{ label: 'Dashboard', href: '#home' }, { label: 'Index' }]);
+    setBreadcrumbs([{ label: 'Dashboard', href: '#home' }, { label: 'Coursework Index' }]);
 
-    let items = [];
-    LABS.forEach(lab => {
-      items.push({ title: lab.title, icon: lab.icon, path: lab.path, type: 'lab', href: `#labs/${lab.id}` });
-      lab.files.forEach(f => {
-        items.push({ title: f.name, icon: '📄', path: f.path, type: 'lab', href: `#labs/${lab.id}` });
-      });
-    });
-    THEORY.forEach(topic => {
-      items.push({ title: topic.title, icon: topic.icon, path: topic.path, type: 'theory', href: `#theory/${topic.id}` });
-      topic.files.forEach(f => {
-        items.push({ title: f.name, icon: '📄', path: f.path, type: 'theory', href: `#theory/${topic.id}` });
-      });
-    });
+    const totalModules = LABS.length + THEORY.length;
+    let totalFiles = 0;
+    LABS.forEach(l => totalFiles += (l.files ? l.files.length : 0));
+    THEORY.forEach(t => totalFiles += (t.files ? t.files.length : 0));
 
     let html = `
-      <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:16px;">🔍 Complete Index</h2>
-      <input type="text" id="indexFilter" placeholder="Filter items…" style="
-        width:100%;max-width:500px;padding:10px 20px;border:none;border-radius:50px;
-        background:var(--surface-cream);font-family:inherit;font-size:0.88rem;
-        margin-bottom:20px;box-shadow:var(--shadow-sm);outline:none;" />
-      <div class="index-list" id="indexList">`;
+      <div class="index-header">
+        <h2 class="index-header-title">📋 Coursework Index & Directory</h2>
+        <p class="index-header-subtitle">Comprehensive tabular directory of all practical laboratory experiments, theory architecture modules, and code files with their actual functionality.</p>
+      </div>
 
-    items.forEach((item) => {
+      <div class="index-controls">
+        <div class="index-search-box">
+          <span class="index-search-icon">🔍</span>
+          <input type="text" id="indexFilter" class="index-search-input" placeholder="Search by topic, working, technology, or path…" />
+        </div>
+
+        <div class="index-filter-tabs">
+          <button class="filter-tab-btn active" data-filter="all">
+            All Modules <span class="filter-count">${totalModules}</span>
+          </button>
+          <button class="filter-tab-btn" data-filter="lab">
+            🧪 Labs <span class="filter-count">${LABS.length}</span>
+          </button>
+          <button class="filter-tab-btn" data-filter="theory">
+            📖 Theory <span class="filter-count">${THEORY.length}</span>
+          </button>
+          <button class="filter-tab-btn" data-filter="files">
+            📄 Code Files <span class="filter-count">${totalFiles}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modules Tabular Directory -->
+      <div class="index-table-container" id="modulesTableContainer">
+        <table class="index-table" id="indexModulesTable">
+          <thead>
+            <tr>
+              <th class="col-sno">#</th>
+              <th>Topic & Core Working</th>
+              <th>Category</th>
+              <th>Technologies</th>
+              <th>Repository Path</th>
+              <th style="text-align:center;">Action</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+    let sno = 1;
+
+    // 1. Laboratory Experiments
+    LABS.forEach(lab => {
+      const conceptsPills = (lab.concepts || []).slice(0, 3).map(c => `<span class="tech-pill">${c}</span>`).join('');
+      const searchData = [lab.title, lab.working || '', lab.category || '', ...(lab.concepts || []), lab.path].join(' ').toLowerCase();
+
       html += `
-        <a href="${item.href}" class="index-item" data-search="${(item.title + ' ' + item.path).toLowerCase()}">
-          <span class="index-item-icon">${item.icon}</span>
-          <div>
-            <div class="index-item-title">${item.title}</div>
-            <div class="index-item-path">${item.path}</div>
-          </div>
-          <span class="index-item-type ${item.type}">${item.type}</span>
-        </a>`;
+        <tr class="module-row" data-type="lab" data-search="${searchData}">
+          <td class="col-sno">${sno++}</td>
+          <td class="topic-cell">
+            <a href="#labs/${lab.id}" class="topic-title-link">
+              <span style="font-size:1.2rem;">${lab.icon}</span>
+              <span>${lab.title}</span>
+            </a>
+            <div class="topic-working-desc">${lab.working || lab.description}</div>
+          </td>
+          <td>
+            <span class="badge-category badge-lab">${lab.category || 'Laboratory'}</span>
+          </td>
+          <td>
+            <div class="tech-pills">${conceptsPills}</div>
+          </td>
+          <td>
+            <span class="path-code">${lab.path}</span>
+          </td>
+          <td style="text-align:center;">
+            <a href="#labs/${lab.id}" class="view-btn">View Docs →</a>
+          </td>
+        </tr>`;
     });
 
-    html += '</div>';
+    // 2. Theory Modules
+    THEORY.forEach(topic => {
+      const conceptsPills = (topic.concepts || []).slice(0, 3).map(c => `<span class="tech-pill">${c}</span>`).join('');
+      const searchData = [topic.title, topic.working || '', topic.category || '', ...(topic.concepts || []), topic.path].join(' ').toLowerCase();
+
+      html += `
+        <tr class="module-row" data-type="theory" data-search="${searchData}">
+          <td class="col-sno">${sno++}</td>
+          <td class="topic-cell">
+            <a href="#theory/${topic.id}" class="topic-title-link">
+              <span style="font-size:1.2rem;">${topic.icon}</span>
+              <span>${topic.title}</span>
+            </a>
+            <div class="topic-working-desc">${topic.working || topic.description}</div>
+          </td>
+          <td>
+            <span class="badge-category badge-theory">${topic.category || 'Theory Module'}</span>
+          </td>
+          <td>
+            <div class="tech-pills">${conceptsPills}</div>
+          </td>
+          <td>
+            <span class="path-code">${topic.path}</span>
+          </td>
+          <td style="text-align:center;">
+            <a href="#theory/${topic.id}" class="view-btn">View Docs →</a>
+          </td>
+        </tr>`;
+    });
+
+    html += `
+          </tbody>
+        </table>
+        <div id="noModulesMatch" class="empty-table-state" style="display:none;">
+          No matching coursework modules found. Try adjusting your search keywords.
+        </div>
+      </div>
+
+      <!-- Code Files Tabular Directory -->
+      <div class="index-table-container" id="filesTableContainer" style="display:none;">
+        <table class="index-table" id="indexFilesTable">
+          <thead>
+            <tr>
+              <th class="col-sno">#</th>
+              <th>File Name & Language</th>
+              <th>Actual Purpose & Functionality</th>
+              <th>Module Context</th>
+              <th>Path</th>
+              <th style="text-align:center;">Action</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
+    let fileSno = 1;
+    const allFilesList = [];
+
+    LABS.forEach(l => {
+      (l.files || []).forEach(f => {
+        allFilesList.push({ ...f, parentTitle: l.title, parentHref: `#labs/${l.id}`, parentIcon: l.icon });
+      });
+    });
+
+    THEORY.forEach(t => {
+      (t.files || []).forEach(f => {
+        allFilesList.push({ ...f, parentTitle: t.title, parentHref: `#theory/${t.id}`, parentIcon: t.icon });
+      });
+    });
+
+    allFilesList.forEach(f => {
+      const langUpper = (f.lang || f.name.split('.').pop()).toUpperCase();
+      const searchData = [f.name, f.purpose || '', f.parentTitle, f.path, langUpper].join(' ').toLowerCase();
+
+      html += `
+        <tr class="file-row" data-search="${searchData}">
+          <td class="col-sno">${fileSno++}</td>
+          <td>
+            <a href="${f.parentHref}" class="topic-title-link" style="font-family:monospace;font-size:0.86rem;">
+              <span>📄</span>
+              <strong>${f.name}</strong>
+              <span class="badge-category badge-file" style="font-size:0.68rem;padding:2px 7px;">${langUpper}</span>
+            </a>
+          </td>
+          <td>
+            <div style="font-size:0.82rem;color:var(--text-dark);">${f.purpose || 'Component implementation'}</div>
+          </td>
+          <td>
+            <span style="font-size:0.8rem;color:var(--text-muted);">${f.parentIcon} ${f.parentTitle.split(':')[0]}</span>
+          </td>
+          <td>
+            <span class="path-code">${f.path}</span>
+          </td>
+          <td style="text-align:center;">
+            <a href="${f.parentHref}" class="view-btn">Inspect Code →</a>
+          </td>
+        </tr>`;
+    });
+
+    html += `
+          </tbody>
+        </table>
+        <div id="noFilesMatch" class="empty-table-state" style="display:none;">
+          No matching code files found.
+        </div>
+      </div>`;
+
     document.getElementById('content').innerHTML = html;
 
-    // Index filter
-    const indexFilter = document.getElementById('indexFilter');
-    if (indexFilter) {
-      indexFilter.addEventListener('input', function () {
-        const q = this.value.toLowerCase();
-        document.querySelectorAll('#indexList .index-item').forEach(item => {
-          item.style.display = item.dataset.search.includes(q) ? '' : 'none';
+    // --- Interactive Tab & Search Logic ---
+    let currentFilter = 'all';
+    const filterBtns = document.querySelectorAll('.filter-tab-btn');
+    const modulesContainer = document.getElementById('modulesTableContainer');
+    const filesContainer = document.getElementById('filesTableContainer');
+    const searchInput = document.getElementById('indexFilter');
+    const moduleRows = document.querySelectorAll('.module-row');
+    const fileRows = document.querySelectorAll('.file-row');
+    const noModulesMatch = document.getElementById('noModulesMatch');
+    const noFilesMatch = document.getElementById('noFilesMatch');
+
+    function filterTable() {
+      const q = searchInput.value.toLowerCase().trim();
+
+      if (currentFilter === 'files') {
+        modulesContainer.style.display = 'none';
+        filesContainer.style.display = 'block';
+
+        let visibleCount = 0;
+        fileRows.forEach(row => {
+          const match = !q || row.dataset.search.includes(q);
+          row.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
         });
-      });
+        noFilesMatch.style.display = visibleCount === 0 ? 'block' : 'none';
+      } else {
+        modulesContainer.style.display = 'block';
+        filesContainer.style.display = 'none';
+
+        let visibleCount = 0;
+        moduleRows.forEach(row => {
+          const typeMatch = (currentFilter === 'all') || (row.dataset.type === currentFilter);
+          const searchMatch = !q || row.dataset.search.includes(q);
+          const isVisible = typeMatch && searchMatch;
+          row.style.display = isVisible ? '' : 'none';
+          if (isVisible) visibleCount++;
+        });
+        noModulesMatch.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
     }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        filterTable();
+      });
+    });
+
+    searchInput.addEventListener('input', filterTable);
   }
 
   // --- Copy Code Button ---
